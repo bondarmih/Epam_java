@@ -8,7 +8,7 @@ public class TestBinarySearch {
 		System.out.println("Initial array is: "+ Arrays.toString(unsorted));
 		double[] sorted = Sort.sortArray(unsorted);
 		System.out.println("Sorted array is: "+ Arrays.toString(sorted));
-		int pos = BinarySearch.searchInArray(sorted, 45.2);
-		System.out.println("45.2 is on index "+ pos);	
+		int pos = BinarySearch.searchInArray(sorted, 193.0);
+		System.out.println("193.0 is on index "+ pos);	
 	}
 }

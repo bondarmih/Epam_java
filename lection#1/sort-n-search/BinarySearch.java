@@ -16,8 +16,8 @@ public class BinarySearch {
 			
 			prevPos = pos;
 			pos = (maxPos + minPos)/2;
-			System.out.println("Index "+ (pos) + ", Value "+ sortedArray[pos]);
-			if (sortedArray[pos] == soughtForItem) return pos;
+			//System.out.println("Index "+ (pos) + ", Value "+ sortedArray[pos]);
+			if (sortedArray[pos] == soughtForItem) return searchForDublicates(pos, sortedArray, rangeDirection);
 			if (((sortedArray[pos] <  soughtForItem)&&(rangeDirection>0))||((sortedArray[pos] >  soughtForItem)&&(rangeDirection<0))) minPos = pos;
 			if (((sortedArray[pos] >  soughtForItem)&&(rangeDirection>0))||((sortedArray[pos] <  soughtForItem)&&(rangeDirection<0))) maxPos = pos;
 
@@ -28,5 +28,14 @@ public class BinarySearch {
 		System.out.println("Coincident item not found");
 		return -1;
 		
+	}
+	
+	private static int searchForDublicates (int initPos, double[] array, float dir) {
+		int pos = initPos;		
+		while (array[pos] == array[initPos]) {
+			pos = Math.round(pos - 1 * dir);
+		}
+		pos = Math.round(pos + 1 * dir);
+		return pos;
 	}
 }
