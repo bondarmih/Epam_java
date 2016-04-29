@@ -1,5 +1,5 @@
 # cd ~/IdeaProjects/epam_java/helloworld/src/Main
-# javac Main.class
+# javac Main.java
 # java -cp . Main 
 
 
