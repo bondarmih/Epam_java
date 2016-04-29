@@ -33,9 +33,9 @@ public class BinarySearch {
 	private static int searchForDublicates (int initPos, double[] array, float dir) {
 		int pos = initPos;		
 		while (array[pos] == array[initPos]) {
-			pos = Math.round(pos - 1 * dir);
+			pos = pos - 1;
 		}
-		pos = Math.round(pos + 1 * dir);
+		pos = pos + 1;
 		return pos;
 	}
 }
