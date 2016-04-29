@@ -35,7 +35,7 @@ public class BinarySearch {
 		while (array[pos] == array[initPos]) {
 			pos = pos - 1;
 		}
-		pos = pos + 1);
+		pos = pos + 1;
 		return pos;
 	}
 }

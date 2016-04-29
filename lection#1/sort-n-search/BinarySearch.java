@@ -17,7 +17,7 @@ public class BinarySearch {
 			prevPos = pos;
 			pos = (maxPos + minPos)/2;
 			//System.out.println("Index "+ (pos) + ", Value "+ sortedArray[pos]);
-			if (sortedArray[pos] == soughtForItem) return searchForDublicates(pos, sortedArray, rangeDirection);
+			if (sortedArray[pos] == soughtForItem) return searchForDublicates(pos, sortedArray);
 			if (((sortedArray[pos] <  soughtForItem)&&(rangeDirection>0))||((sortedArray[pos] >  soughtForItem)&&(rangeDirection<0))) minPos = pos;
 			if (((sortedArray[pos] >  soughtForItem)&&(rangeDirection>0))||((sortedArray[pos] <  soughtForItem)&&(rangeDirection<0))) maxPos = pos;
 
@@ -30,7 +30,7 @@ public class BinarySearch {
 		
 	}
 	
-	private static int searchForDublicates (int initPos, double[] array, float dir) {
+	private static int searchForDublicates (int initPos, double[] array) {
 		int pos = initPos;		
 		while (array[pos] == array[initPos]) {
 			pos = pos - 1;
