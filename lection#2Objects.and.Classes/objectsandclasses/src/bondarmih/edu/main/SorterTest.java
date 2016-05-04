@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 /**
  *
- * Created by bondarm on 04.05.16.
+ * Created by bondarm on 04.05.16 .
  */
 public class SorterTest{
 
