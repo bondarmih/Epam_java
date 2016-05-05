@@ -3,17 +3,20 @@ package bondarmih.edu.sorters;
 import bondarmih.edu.utility.ArrayUtility;
 
 public class SelectionSorter extends Sorter {
-	public void sort (double[] unsorted) throws NullPointerException {
-        for (int i=0; i<unsorted.length; i++) {
-			double min = unsorted[i];
-			int minIndex = i;
-			for (int k=i+1; k<unsorted.length; k++) {
-				if (unsorted[k]<min) {
-					minIndex = k;
-					min = unsorted[k];
+	public void sort (double[] unsorted) {
+		if (unsorted == null) throw new IllegalArgumentException( "Array can`t be null" );
+		else {
+			for (int i = 0; i < unsorted.length; i++) {
+				double min = unsorted[i];
+				int minIndex = i;
+				for (int k = i + 1; k < unsorted.length; k++) {
+					if (unsorted[k] < min) {
+						minIndex = k;
+						min = unsorted[k];
+					}
 				}
+				ArrayUtility.swap(unsorted, i, minIndex);
 			}
-			ArrayUtility.swap(unsorted , i , minIndex);
 		}
 	}
 
@@ -46,7 +49,7 @@ public class SelectionSorter extends Sorter {
 		System.out.println("Coincident item not found");
 		return -1;
 	}
-    public String sorterDescription () {
-        return "SelectionSorter: selection sort and binary search";
-    }
+	public String sorterDescription () {
+		return "SelectionSorter: selection sort and binary search";
+	}
 }

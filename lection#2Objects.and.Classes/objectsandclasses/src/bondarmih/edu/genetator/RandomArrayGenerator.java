@@ -15,12 +15,6 @@ public class RandomArrayGenerator {
     }
 
     public static double[] generateArray() {
-        double module = 100;
-        int length = (int)(Math.random()*100);
-        double[] generatedArray = new double[length];
-        for (int i=0; i<length; i++) {
-            generatedArray[i] = Math.random()*module*2-module;
-        }
-        return generatedArray;
+        return generateArray(30);
     }
 }

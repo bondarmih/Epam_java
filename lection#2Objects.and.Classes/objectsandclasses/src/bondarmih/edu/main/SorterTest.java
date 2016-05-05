@@ -14,23 +14,26 @@ import java.util.Arrays;
 public class SorterTest{
 
     private static void testSorterInstance(Sorter testedInstance) {
-        //double[] initialArray = {2.0,4.0,4.0,6.0,4.0,6.0,7.0,36.0,6.0,4.0,4.0,4.0,43.0,5.0,6.0,7.0,4.0,3.0,5.0,5.0,3.0};
+        //double[] initialArray = null;
         double[] initialArray = RandomArrayGenerator.generateArray(100);
         System.out.println("Sort and search test");
         System.out.println(testedInstance.sorterDescription());
-        double itemToSearch = initialArray[14];
-        int position;
-
         System.out.println("Initial array is: "+ Arrays.toString(initialArray));
         try {
             testedInstance.sort(initialArray);
         }
-        catch (Exception e) {
-            e.printStackTrace(System.out);
+        catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
         }
         System.out.println("Sorted array is:  "+ Arrays.toString(initialArray));
 
-        position = testedInstance.search(initialArray, itemToSearch);
+        double itemToSearch = initialArray[(int)(Math.random()*(initialArray.length-1))];
+        System.out.println("Searching item " + itemToSearch);
+        int position = testedInstance.search(initialArray, itemToSearch);
+        if (position == -1) {
+            System.out.println("Item " + itemToSearch + "not found");
+        }
         System.out.println("Index of searched item " + itemToSearch +": "+ position);
         System.out.println("");
     }
