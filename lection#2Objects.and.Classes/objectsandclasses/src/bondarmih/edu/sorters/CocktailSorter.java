@@ -2,8 +2,8 @@ package bondarmih.edu.sorters;
 
 import bondarmih.edu.utility.ArrayUtility;
 
-public class CocktailSorter extends Sorter {
-    public void sort (double[] unsorted) {
+public class CocktailSorter extends Sorter{
+    public void sort (double[] unsorted) throws IllegalArgumentException {
         if (unsorted == null) throw new IllegalArgumentException( "Array can`t be null" );
         else {
             int bottomEdge = 0;

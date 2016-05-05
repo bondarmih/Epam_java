@@ -3,7 +3,7 @@ package bondarmih.edu.sorters;
 import bondarmih.edu.utility.ArrayUtility;
 
 public class SelectionSorter extends Sorter {
-	public void sort (double[] unsorted) {
+	public void sort (double[] unsorted)  throws IllegalArgumentException {
 		if (unsorted == null) throw new IllegalArgumentException( "Array can`t be null" );
 		else {
 			for (int i = 0; i < unsorted.length; i++) {
