@@ -26,21 +26,24 @@ public class CocktailSorter extends Sorter{
     }
 
     public int search(double[] sortedArray, double soughtForItem) {
-        if (sortedArray.length == 0) return -1;
-        int pos;
-        int minPos = 0;
-        int maxPos = sortedArray.length - 1;
+        if (sortedArray == null) throw new IllegalArgumentException( "Array can`t be null" );
+        else {
+            if (sortedArray.length == 0) return -1;
+            int pos;
+            int minPos = 0;
+            int maxPos = sortedArray.length - 1;
 
-        while (sortedArray[minPos] < soughtForItem && sortedArray[maxPos] > soughtForItem) {
-            pos = (int) Math.round(minPos + (soughtForItem - sortedArray[minPos]) * (maxPos - minPos) / (sortedArray[maxPos] - sortedArray[minPos]));
+            while (sortedArray[minPos] < soughtForItem && sortedArray[maxPos] > soughtForItem) {
+                pos = (int) Math.round(minPos + (soughtForItem - sortedArray[minPos]) * (maxPos - minPos) / (sortedArray[maxPos] - sortedArray[minPos]));
 
-            if (sortedArray[pos] < soughtForItem) minPos = pos + 1;
-            else if (sortedArray[pos] > soughtForItem) maxPos = pos - 1;
-            else return ArrayUtility.findFirstEntry(pos, sortedArray);
+                if (sortedArray[pos] < soughtForItem) minPos = pos + 1;
+                else if (sortedArray[pos] > soughtForItem) maxPos = pos - 1;
+                else return ArrayUtility.findFirstEntry(pos, sortedArray);
+            }
+            if (sortedArray[minPos] == soughtForItem) return ArrayUtility.findFirstEntry(minPos, sortedArray);
+            else if (sortedArray[maxPos] == soughtForItem) return ArrayUtility.findFirstEntry(maxPos, sortedArray);
+            else return -1;
         }
-        if (sortedArray[minPos] == soughtForItem) return ArrayUtility.findFirstEntry(minPos, sortedArray);
-        else if (sortedArray[maxPos] == soughtForItem) return ArrayUtility.findFirstEntry(maxPos, sortedArray);
-        else return -1;
     }
 
     public String sorterDescription() {
