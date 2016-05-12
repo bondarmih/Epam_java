@@ -1,4 +1,4 @@
-package bondarmih.edu.genetator;
+package bondarmih.edu.generator;
 
 /**
  *

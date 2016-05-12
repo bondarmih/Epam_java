@@ -1,6 +1,6 @@
 package bondarmih.edu.main;
 
-import bondarmih.edu.genetator.RandomArrayGenerator;
+import bondarmih.edu.generator.RandomArrayGenerator;
 import bondarmih.edu.sorters.CocktailSorter;
 import bondarmih.edu.sorters.SelectionSorter;
 import bondarmih.edu.sorters.Sorter;
