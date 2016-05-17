@@ -3,86 +3,111 @@ package bondarmih.edu.list;
 import bondarmih.edu.utility.TwoWayIterable;
 import bondarmih.edu.utility.TwoWayIterator;
 
-import java.math.BigDecimal;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 /**
  * Created by bondarm on 10.05.16.
  *
  */
-public class DoubleLinkedListImpl<listType extends Number & Comparable>  implements DoubleLinkedListInterface<listType>, TwoWayIterable<listType>, Iterable<listType>{
+public class DoubleLinkedListImpl<listType extends Comparable>  implements DoubleLinkedListInterface<listType>, TwoWayIterable<listType>, Iterable<listType>{
     private ListElement<listType> header;
     private int size;
-    private int position;
-    //public Iterator<ListElement> iterator;
-    //public TwoWayIterable<ListElement> twoWayIterator;
-
+    private int modificationsCounter;
 
     public DoubleLinkedListImpl() {
-        this.header = new ListElement<listType>(null, this.header, this.header);
+        this.header = new ListElement<>(null, this.header, this.header);
         this.size = 0;
+        this.modificationsCounter = 0;
     }
 
     @Override
     public listType get(int index) {
-        if (indexValid(index)) return element(index).value;
-        else return null;
+        try {
+            indexValid(index);
+            listType result = element(index).value;
+            if (result == null) throw new IllegalArgumentException("Element with index = " + index + " is Null");
+        }
+        catch (IndexOutOfBoundsException | IllegalArgumentException e) {
+            System.out.println("Element extract operation can not be performed. "+ e.getMessage());
+        }
+        return element(index).value;
     }
 
-    private boolean indexValid(int index) {
-        return index >= 0 && index < size;
+    private void indexValid(int index) {
+        if (index < 0 || index >= size) throw new IndexOutOfBoundsException("Index is " + index + ", must be in range (0;" + (size-1)+")");
     }
 
-    private boolean positionValid(int index) {
-        return index >= 0 && index <= size;
+    private void positionValid(int index) {
+        if (index < 0 || index > size) throw new IndexOutOfBoundsException("Index is " + index + ", must be in range (0;" + size+")");
+    }
+
+    public void add(listType value){
+        add(value,size);
     }
 
     @Override
     public boolean add(listType value, int index) {
-        if (positionValid(index)) {
+        try {
+            positionValid(index);
             ListElement<listType> newListElement;
             if (size == 0) {
                 newListElement = new ListElement<>(value, null, null);
                 newListElement.next = newListElement;
                 newListElement.previous = newListElement;
-            }
-            else if (index == size) {
+                header.next = newListElement;
+                header.previous = newListElement;
+            } else if (index == 0) {
+                newListElement = new ListElement<>(value, header.next, header.previous);
+                header.next = newListElement;
+            } else if (index == size) {
                 newListElement = new ListElement<>(value, header.next, header.previous);
                 header.previous = newListElement;
-            }
-            else {
+            } else {
                 newListElement = new ListElement<>(value, element(index), element(index).previous);
             }
             size++;
+            modificationsCounter++;
             newListElement.previous.next = newListElement;
-            newListElement.next.previous= newListElement;
-            return true;
+            newListElement.next.previous = newListElement;
         }
-        return false;
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Element add operation can not be performed: "+ e.getMessage());
+
+        }
+        return true;
+
     }
 
     @Override
     public boolean drop(int index) {
-        if (indexValid(index)) {
+        try {
+            indexValid(index);
             element(index).next.previous = element(index).previous;
             element(index).previous.next = element(index).next;
-            element(index).next = null;
-            element(index).previous = null;
-            element(index).value = null;
             size--;
-
-            return true;
+            modificationsCounter++;
         }
-        return false;
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Element drop operation can not be performed: "+ e.getMessage());
+        }
+        return true;
     }
 
     @Override
-    public boolean set(listType value, int index) {
-        if (indexValid(index)) {
-            element(index).value = value;
-            return true;
+    public listType set(listType value, int index) {
+        ListElement<listType> old = element(index);
+        listType oldValue = old.value;
+        try {
+            indexValid(index);
+            old.value = value;
+            modificationsCounter++;
+
         }
-        return false;
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Value set operation can not be performed: "+ e.getMessage());
+        }
+        return oldValue;
     }
 
     @Override
@@ -92,35 +117,44 @@ public class DoubleLinkedListImpl<listType extends Number & Comparable>  impleme
 
     @Override
     public void sort() {
-        for (int i = 0; i < size; i++) {
-            ListElement<listType> min = element(i);
-            int minIndex = i;
-            for (int k = i + 1; k < size; k++) {
-                if (element(k).compareTo(min)<0) {
-                    minIndex = k;
-                    min = element(k);
+        try {
+            checkListForNullValues();
+
+            for (int i = 0; i < size; i++) {
+                ListElement<listType> min = element(i);
+                int minIndex = i;
+
+                for (int k = i + 1; k < size; k++) {
+                    if (element(k).compareTo(min) < 0) {
+                        minIndex = k;
+                        min = element(k);
+                    }
+
                 }
+                if (i != minIndex) swap(i, minIndex);
             }
-            if (i != minIndex) swap(element(i), element(minIndex));
+            modificationsCounter++;
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Sort operation can not be performed: " + e.getMessage());
+            throw e;
         }
     }
 
-    private void swap(ListElement<listType> a, ListElement<listType> b){
-        ListElement<listType> c = a;
-        c.next.previous = c;
-        c.previous.next = c;
+    private void checkListForNullValues() {
+        int counter = 0;
+        for (listType i : this) {
+            if (i==null) throw new IllegalArgumentException("Element with index = " + counter + " is Null");
+            counter++;
+        }
+    }
 
-        a = b;
-        a.next.previous = a;
-        a.previous.next = a;
-
-        b = c;
-        b.next.previous = b;
-        b.previous.next = b;
+    private void swap(int a, int b){
+        this.set(this.set(this.get(a),b),a) ;
     }
 
     private ListElement<listType> element(int index) {
-        ListElement<listType> pos = header;
+        ListElement<listType> pos = header.next;
         for (int i = 0; i < index; i++)
             pos = pos.next;
         return pos;
@@ -137,7 +171,7 @@ public class DoubleLinkedListImpl<listType extends Number & Comparable>  impleme
     }
 
 
-    private class ListElement<ElementType> implements Comparable<ListElement> {
+    private class ListElement<ElementType extends Comparable> implements Comparable<ListElement> {
         ElementType value;
         ListElement<ElementType> next;
         ListElement<ElementType> previous;
@@ -149,7 +183,7 @@ public class DoubleLinkedListImpl<listType extends Number & Comparable>  impleme
         }
 
         public int compareTo (ListElement otherElement) {
-            return new BigDecimal(this.toString()).compareTo(new BigDecimal(otherElement.toString()));
+            return this.value.compareTo(otherElement.value);
         }
     }
 
@@ -159,7 +193,6 @@ public class DoubleLinkedListImpl<listType extends Number & Comparable>  impleme
         private int nextIndex;
 
         MyListIterator() {
-            // assert isPositionIndex(index);
             next = header.next;
             nextIndex = 0;
         }
@@ -179,25 +212,58 @@ public class DoubleLinkedListImpl<listType extends Number & Comparable>  impleme
 
     private class MyTwoWayIterator implements TwoWayIterator<listType> {
         private ListElement<listType> currentElement;
-        private ListElement<listType> previous;
+        private ListElement<listType> previousItem;
+        private ListElement<listType> nextItem;
         private int previousIndex;
+        private int nextIndex;
+        private int expectedModificationsCount = modificationsCounter;
 
         MyTwoWayIterator() {
-            previous = header.previous;
+            previousItem = header.previous;
+            nextItem = header.next;
             previousIndex = size - 1;
+            nextIndex = 0;
         }
 
         @Override
-        public listType previous() {
-            currentElement = previous;
-            previous = previous.previous;
+        public listType previousItem() {
+            checkForModifications();
+            currentElement = previousItem;
+            previousItem = previousItem.previous;
             previousIndex--;
-            return null;
+            if (nextIndex==0)
+                nextIndex = size - 1;
+            else
+                nextIndex--;
+            return previousItem.value;
+        }
+
+        @Override
+        public listType nextItem() {
+            checkForModifications();
+            currentElement = nextItem;
+            nextItem = nextItem.next;
+            nextIndex++;
+            if (previousIndex==size-1)
+                previousIndex=0;
+            else
+                previousIndex++;
+            return nextItem.value;
         }
 
         @Override
         public boolean hasPrevious() {
-            return previousIndex>=0;
+            return true;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return true;
+        }
+
+        private void checkForModifications(){
+            if (modificationsCounter != expectedModificationsCount)
+                throw new ConcurrentModificationException();
         }
     }
 
