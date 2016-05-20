@@ -65,8 +65,10 @@ public class ListTester {
             }
         };
 
-        for (Integer i : list) {
-            System.out.println(intToDouble.apply(i));
+        DoubleLinkedListImpl<Double> transformedList = DoubleLinkedListImpl.map(list,intToDouble);
+
+        for (Double d : transformedList) {
+            System.out.println(d);
         }
 
     }

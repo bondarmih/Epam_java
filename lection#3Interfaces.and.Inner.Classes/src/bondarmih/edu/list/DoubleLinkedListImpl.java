@@ -1,8 +1,10 @@
 package bondarmih.edu.list;
 
+import bondarmih.edu.utility.Function;
 import bondarmih.edu.utility.TwoWayIterable;
 import bondarmih.edu.utility.TwoWayIterator;
 
+import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
@@ -10,8 +12,8 @@ import java.util.Iterator;
  * Created by bondarm on 10.05.16.
  *
  */
-public class DoubleLinkedListImpl<listType extends Comparable>  implements DoubleLinkedListInterface<listType>, TwoWayIterable<listType>, Iterable<listType>{
-    private ListElement<listType> header;
+public class DoubleLinkedListImpl<T extends Comparable>  implements DoubleLinkedListInterface<T>, TwoWayIterable<T>, Iterable<T>{
+    private ListElement<T> header;
     private int size;
     private int modificationsCounter;
 
@@ -22,10 +24,10 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
     }
 
     @Override
-    public listType get(int index) {
+    public T get(int index) {
         try {
             indexValid(index);
-            listType result = element(index).value;
+            T result = element(index).value;
             if (result == null) throw new IllegalArgumentException("Element with index = " + index + " is Null");
         }
         catch (IndexOutOfBoundsException | IllegalArgumentException e) {
@@ -42,15 +44,15 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("Index is " + index + ", must be in range (0;" + size+")");
     }
 
-    public void add(listType value){
+    public void add(T value){
         add(value,size);
     }
 
     @Override
-    public boolean add(listType value, int index) {
+    public boolean add(T value, int index) {
         try {
             positionValid(index);
-            ListElement<listType> newListElement;
+            ListElement<T> newListElement;
             if (size == 0) {
                 newListElement = new ListElement<>(value, null, null);
                 newListElement.next = newListElement;
@@ -95,9 +97,9 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
     }
 
     @Override
-    public listType set(listType value, int index) {
-        ListElement<listType> old = element(index);
-        listType oldValue = old.value;
+    public T set(T value, int index) {
+        ListElement<T> old = element(index);
+        T oldValue = old.value;
         try {
             indexValid(index);
             old.value = value;
@@ -121,7 +123,7 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
             checkListForNullValues();
 
             for (int i = 0; i < size; i++) {
-                ListElement<listType> min = element(i);
+                ListElement<T> min = element(i);
                 int minIndex = i;
 
                 for (int k = i + 1; k < size; k++) {
@@ -143,7 +145,7 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
 
     private void checkListForNullValues() {
         int counter = 0;
-        for (listType i : this) {
+        for (T i : this) {
             if (i==null) throw new IllegalArgumentException("Element with index = " + counter + " is Null");
             counter++;
         }
@@ -153,30 +155,38 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
         this.set(this.set(this.get(a),b),a) ;
     }
 
-    private ListElement<listType> element(int index) {
-        ListElement<listType> pos = header.next;
+    private ListElement<T> element(int index) {
+        ListElement<T> pos = header.next;
         for (int i = 0; i < index; i++)
             pos = pos.next;
         return pos;
     }
 
     @Override
-    public Iterator<listType> iterator() {
+    public Iterator<T> iterator() {
         return new MyListIterator();
     }
 
     @Override
-    public TwoWayIterator<listType> twoWayIterator() {
+    public TwoWayIterator<T> twoWayIterator() {
         return new MyTwoWayIterator();
     }
 
+    public static <T extends Comparable, F extends Comparable> DoubleLinkedListImpl<F> map(DoubleLinkedListImpl<T> inputList, Function <T,F> mapFunction) {
+        DoubleLinkedListImpl<F> outputList = new DoubleLinkedListImpl<>();
+        for (T listElement : inputList ) {
+            outputList.add(mapFunction.apply(listElement));
+        }
+        return  outputList;
 
-    private class ListElement<ElementType extends Comparable> implements Comparable<ListElement> {
-        ElementType value;
-        ListElement<ElementType> next;
-        ListElement<ElementType> previous;
+    }
 
-        ListElement(ElementType value, ListElement<ElementType> next, ListElement<ElementType> previous) {
+    private class ListElement<E extends Comparable> implements Comparable<ListElement> {
+        E value;
+        ListElement<E> next;
+        ListElement<E> previous;
+
+        ListElement(E value, ListElement<E> next, ListElement<E> previous) {
             this.value = value;
             this.next = next;
             this.previous = previous;
@@ -187,9 +197,9 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
         }
     }
 
-    private class MyListIterator implements Iterator<listType> {
-        private ListElement<listType> currentElement;
-        private ListElement<listType> next;
+    private class MyListIterator implements Iterator<T> {
+        private ListElement<T> currentElement;
+        private ListElement<T> next;
         private int nextIndex;
 
         MyListIterator() {
@@ -201,7 +211,7 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
             return nextIndex < size;
         }
 
-        public listType next() {
+        public T next() {
             currentElement = next;
             next = next.next;
             nextIndex++;
@@ -210,10 +220,10 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
 
     }
 
-    private class MyTwoWayIterator implements TwoWayIterator<listType> {
-        private ListElement<listType> currentElement;
-        private ListElement<listType> previousItem;
-        private ListElement<listType> nextItem;
+    private class MyTwoWayIterator implements TwoWayIterator<T> {
+        private ListElement<T> currentElement;
+        private ListElement<T> previousItem;
+        private ListElement<T> nextItem;
         private int previousIndex;
         private int nextIndex;
         private int expectedModificationsCount = modificationsCounter;
@@ -226,7 +236,7 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
         }
 
         @Override
-        public listType previousItem() {
+        public T previousItem() {
             checkForModifications();
             currentElement = previousItem;
             previousItem = previousItem.previous;
@@ -239,7 +249,7 @@ public class DoubleLinkedListImpl<listType extends Comparable>  implements Doubl
         }
 
         @Override
-        public listType nextItem() {
+        public T nextItem() {
             checkForModifications();
             currentElement = nextItem;
             nextItem = nextItem.next;
