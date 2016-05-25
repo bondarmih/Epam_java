@@ -1,6 +1,6 @@
 package bondarmih.edu.injector;
 
-import bondarmih.edu.ClassInspector.ClassInspector;
+import bondarmih.edu.classinspector.ClassInspector;
 import bondarmih.edu.cache.*;
 
 import java.lang.reflect.Field;
@@ -20,6 +20,7 @@ public class Injector {
         Collections.addAll(fieldList, annotatedFields);
         System.out.println(fieldList.size() + " field(s) found");
         for (Field field: fieldList) {
+            if (field == null) throw new IllegalArgumentException("Injected cache is null.");
             System.out.println("Class name: " + field.getDeclaringClass() +", Field name: "+ field.getName());
             String cacheName = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
             Cache injectedCache = CacheFactory.getCache(cacheName);
@@ -31,9 +32,8 @@ public class Injector {
             catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            catch (NullPointerException e) {
-                System.out.println("Injected Cache is null, exit.");
-                System.exit(-1);
+            catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
 
         }

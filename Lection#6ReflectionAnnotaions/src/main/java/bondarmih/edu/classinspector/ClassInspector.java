@@ -1,4 +1,4 @@
-package bondarmih.edu.ClassInspector;
+package bondarmih.edu.classinspector;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
