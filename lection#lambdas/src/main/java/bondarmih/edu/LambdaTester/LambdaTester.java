@@ -1,7 +1,6 @@
 package bondarmih.edu.LambdaTester;
 
 import bondarmih.edu.person.Person;
-import bondarmih.edu.person.PersonList;
 import bondarmih.edu.resourceHandler.NamesResourceHandler;
 import bondarmih.edu.util.RandomInt;
 import bondarmih.edu.util.Sex;
