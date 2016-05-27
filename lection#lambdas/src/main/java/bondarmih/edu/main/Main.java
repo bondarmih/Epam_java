@@ -1,6 +1,6 @@
 package bondarmih.edu.main;
 
-import bondarmih.edu.Application.Runner;
+import bondarmih.edu.application.Runner;
 
 /**
  * Created by bondarm on 26.05.16.

@@ -1,4 +1,4 @@
-package bondarmih.edu.resourceHandler;
+package bondarmih.edu.resourcehandler;
 
 import bondarmih.edu.util.RandomInt;
 import bondarmih.edu.util.Sex;
@@ -27,23 +27,28 @@ public class NamesResourceHandler {
             ArrayList<String> nameList = null;
             switch (sexOfName) {
                 case MALE: {
-                    if (maleNames != null) nameList = maleNames;
-                    else throw new NoSuchElementException("Male names list is null");
+                    if (maleNames != null) {
+                        nameList = maleNames;
+                    }
+                    else {
+                        throw new NoSuchElementException("Male names list is null");
+                    }
                     break;
                 }
                 case FEMALE: {
-                    if (femaleNames != null) nameList = femaleNames;
-                    else throw new NoSuchElementException("Female names list is null");
+                    if (femaleNames != null) {
+                        nameList = femaleNames;
+                    }
+                    else {
+                        throw new NoSuchElementException("Female names list is null");
+                    }
                     break;
                 }
                 default: {
                     throw new IllegalArgumentException();
                 }
             }
-            if (nameList != null) {
                 return nameList.get(RandomInt.randInt(0, nameList.size()-1));
-            }
-            else throw new IllegalArgumentException("No names for required sex");
         }
         catch (NoSuchElementException | IllegalArgumentException e) {
             System.out.println(e.getMessage() + ". Name ANONYMOUS is returned");

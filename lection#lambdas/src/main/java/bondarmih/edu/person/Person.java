@@ -1,13 +1,6 @@
 package bondarmih.edu.person;
 
-import bondarmih.edu.resourceHandler.NamesResourceHandler;
-import bondarmih.edu.util.RandomInt;
 import bondarmih.edu.util.Sex;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.StringJoiner;
-import java.util.function.Supplier;
 
 /**
  * Created by bondarm on 25.05.16.
