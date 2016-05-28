@@ -18,8 +18,8 @@ public class NamesResourceHandler {
     private ArrayList<String> femaleNames;
 
     public NamesResourceHandler() {
-        this.maleNames = TextFileReader.readFromFile("male_names.txt");
-        this.femaleNames = TextFileReader.readFromFile("female_names.txt");
+        this.maleNames = new ArrayList<>(TextFileReader.readFromFile("male_names.txt"));
+        this.femaleNames = new ArrayList<>(TextFileReader.readFromFile("female_names.txt"));
     }
 
     public String getRandomName(Sex sexOfName) {
