@@ -9,18 +9,20 @@ public class CacheFactory {
 
     private static final String cacheClassPath = "bondarmih.edu.cache.";
     @Nullable
-    public static Cache getCache(String cacheName) {
+    public static Cache getCache(String CacheName) {
         try {
-            Cache cache = (Cache)Class.forName(cacheClassPath + cacheName).newInstance();
+            Cache cache = (Cache)Class.forName(CacheNameHolder.getCacheLocation(CacheName)).newInstance();
             populateCache(cache);
             return cache;
         } catch (ClassNotFoundException e) {
-            System.out.println("Class " + cacheName + " not found");
+            System.out.println("Class " + CacheName + " not found");
         } catch (InstantiationException e) {
-            System.out.println("Can not initiate new instance of " + cacheName);
+            System.out.println("Can not initiate new instance of " + CacheName);
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }

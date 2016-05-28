@@ -22,18 +22,21 @@ public class Injector {
         for (Field field: fieldList) {
             if (field == null) throw new IllegalArgumentException("Injected cache is null.");
             System.out.println("Class name: " + field.getDeclaringClass() +", Field name: "+ field.getName());
-            String cacheName = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
-            Cache injectedCache = CacheFactory.getCache(cacheName);
-            try {
-                field.setAccessible(true);
-                field.set(target,injectedCache);
-                System.out.println("Cache "+ injectedCache.toString() + " is injected to consumer " + target.toString());
-            }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+            String annotateCache = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
+            Cache injectedCache = CacheFactory.getCache(annotateCache);
+            if (injectedCache != null) {
+                try {
+                    field.setAccessible(true);
+                    field.set(target, injectedCache);
+                    System.out.println("Cache " + injectedCache.toString() + " is injected to consumer " + target.toString());
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else {
+                System.out.println("Nothing to inject. Can not find proper cache class for annotation "+ annotateCache);
+                throw new IllegalStateException();
             }
 
         }

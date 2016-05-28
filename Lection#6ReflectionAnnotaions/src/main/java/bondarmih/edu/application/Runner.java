@@ -9,8 +9,12 @@ import bondarmih.edu.consumer.HourlyCacheConsumer;
  */
 public class Runner {
     public static void run() {
-        //ConsumerTester.test(new DailyCacheConsumer());
-        //ConsumerTester.test(new HourlyCacheConsumer());
-        ConsumerTester.test(new DailyCacheConsumerInherit());
+        try {
+            //ConsumerTester.test(new DailyCacheConsumer());
+            //ConsumerTester.test(new HourlyCacheConsumer());
+            ConsumerTester.test(new DailyCacheConsumerInherit());
+        } catch (IllegalStateException e) {
+            System.exit(-1);
+        }
         }
 }
