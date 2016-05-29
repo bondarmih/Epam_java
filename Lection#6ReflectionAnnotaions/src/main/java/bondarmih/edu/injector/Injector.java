@@ -4,6 +4,7 @@ import bondarmih.edu.classinspector.ClassInspector;
 import bondarmih.edu.cache.*;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,8 +23,26 @@ public class Injector {
         for (Field field: fieldList) {
             if (field == null) throw new IllegalArgumentException("Injected cache is null.");
             System.out.println("Class name: " + field.getDeclaringClass() +", Field name: "+ field.getName());
+
             String annotateCache = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
-            Cache injectedCache = CacheFactory.getCache(annotateCache);
+            Class<Cache>[] caches;
+            Cache injectedCache = null;
+            try {
+                 caches = CacheFactory.getCaches();
+                for (int i = 0; i < caches.length; i++) {
+                    boolean isAnnotationForCache = ClassInspector.isAnnotaionExist(caches[i], bondarmih.edu.util.Cache.class);
+                    if (isAnnotationForCache ){
+                        String cacheNameValue = caches[i].getAnnotation(bondarmih.edu.util.Cache.class).name();
+                        boolean isAnnotationCacheNamesEquals = cacheNameValue.equals(annotateCache);
+                        if (isAnnotationCacheNamesEquals) {
+                            injectedCache = CacheFactory.getCache(caches[i]);
+                            break;
+                        }
+                    }
+                }
+            } catch (IllegalStateException e) {
+                System.out.println("Can not get Cache from CacheFactory");
+            }
             if (injectedCache != null) {
                 try {
                     field.setAccessible(true);

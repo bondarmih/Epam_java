@@ -1,23 +1,36 @@
 package bondarmih.edu.cache;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by bondarm on 22.05.16.
  */
 public class CacheFactory {
 
-    private static final String cacheClassPath = "bondarmih.edu.cache.";
-    @Nullable
-    public static Cache getCache(String CacheName) {
+    public static Class[] getCaches(){
+
         try {
-            Cache cache = (Cache)Class.forName(CacheNameHolder.getCacheLocation(CacheName)).newInstance();
+            Class[] cacheList = {
+                    Class.forName("bondarmih.edu.cache.HourlyCache"),
+                    Class.forName("bondarmih.edu.cache.DailyCache"),
+                    Class.forName("bondarmih.edu.cache.WeeklyCache")
+            };
+            return cacheList;
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("Cache class not found in bondarmih.edu.cache");
+        }
+    }
+
+    @Nullable
+    public static Cache getCache(Class cacheClass) {
+        try {
+            Cache cache = (Cache)cacheClass.newInstance();
             populateCache(cache);
             return cache;
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class " + CacheName + " not found");
         } catch (InstantiationException e) {
-            System.out.println("Can not initiate new instance of " + CacheName);
+            System.out.println("Can not initiate new instance of " + cacheClass.getName());
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();

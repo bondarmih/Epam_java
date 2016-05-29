@@ -2,6 +2,7 @@ package bondarmih.edu.classinspector;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,5 +36,15 @@ public class ClassInspector {
                 Collections.addAll(classFields, declaredSuperClassField);
         }
         return classFields.toArray( new Field[classFields.size()]);
+    }
+
+    public static boolean isAnnotaionExist(Class clazz, Class annotationClass) {
+        Annotation[] annotationsList = clazz.getAnnotations();
+        for (int i = 0; i < annotationsList.length; i++) {
+            if (annotationsList[i].annotationType() == annotationClass) {
+                return true;
+            }
+        }
+        return false;
     }
 }
