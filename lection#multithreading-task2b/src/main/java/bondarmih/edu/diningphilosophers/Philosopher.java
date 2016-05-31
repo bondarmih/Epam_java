@@ -10,7 +10,7 @@ public class Philosopher implements Runnable {
     private int id;
     private Semaphore leftFork;
     private Semaphore rightFork;
-    private PhilosopherState philosopherState = PhilosopherState.THINKING;
+    private PhilosopherState philosopherState;
     private Semaphore waiter;
 
     public Philosopher(int id, Semaphore leftFork, Semaphore rightFork, Semaphore waiter) {
