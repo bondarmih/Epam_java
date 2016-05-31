@@ -9,7 +9,7 @@ public class Philosopher implements Runnable {
     private int id;
     private Fork leftFork;
     private Fork rightFork;
-    private PhilosopherState philosopherState = PhilosopherState.THINKING;
+    private PhilosopherState philosopherState;
     private int mealscount;
 
     public Philosopher(int id, Fork leftFork, Fork rightFork) {
