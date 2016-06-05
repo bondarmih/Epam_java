@@ -7,7 +7,7 @@ import java.util.logging.StreamHandler;
 /**
  * Created by bondarm on 05.06.16.
  */
-public class Artist implements CatalogItem {
+public class Artist{
     private String name;
     private List<Album> albums;
 
@@ -18,14 +18,6 @@ public class Artist implements CatalogItem {
 
     public void addAlbum (Album album) {
         this.albums.add(album);
-    }
-
-    public void serialize() {
-
-    }
-
-    public void deserialize() {
-
     }
 
     public String toString() {

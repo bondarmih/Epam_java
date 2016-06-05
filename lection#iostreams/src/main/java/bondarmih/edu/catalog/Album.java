@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by bondarm on 05.06.16.
  */
-public class Album implements CatalogItem{
+public class Album {
     private String name;
     private String genre;
     private List<Track> trackList;
@@ -19,14 +19,6 @@ public class Album implements CatalogItem{
 
     public void  addTrack(Track track) {
         this.trackList.add(track);
-    }
-
-    public void serialize() {
-
-    }
-
-    public void deserialize() {
-
     }
 
     public String toString() {

@@ -3,21 +3,13 @@ package bondarmih.edu.catalog;
 /**
  * Created by bondarm on 05.06.16.
  */
-public class Track implements CatalogItem {
+public class Track {
     private String name;
     private int length;
 
     public Track(String name, int length) {
         this.name = name;
         this.length = length;
-    }
-
-    public void serialize() {
-
-    }
-
-    public void deserialize() {
-
     }
 
     private String lengthToString() {
