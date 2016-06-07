@@ -13,12 +13,12 @@ public class Track {
     }
 
     private String lengthToString() {
-        String result = (this.length / 60) + ":" + String.format("%2d",this.length%60);
+        String result = (this.length / 60) + "m" + String.format("%2d",this.length%60) + "s";
         return result;
     }
 
     public String toString() {
-        String result = "Track, Name : " + this.name + ", length : " + this.lengthToString();
+        String result = "Track; Name = " + this.name + "; Length = " + this.lengthToString();
         return result;
     }
 }

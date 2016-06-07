@@ -21,7 +21,7 @@ public class Artist{
     }
 
     public String toString() {
-        String result = "Artist, Name : " + this.name;
+        String result = "Artist; Name = " + this.name;
         return result;
     }
 

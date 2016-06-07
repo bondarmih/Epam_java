@@ -22,7 +22,7 @@ public class Album {
     }
 
     public String toString() {
-        String result = "Album, Name : "+ this.name + ", Genre : " + this.genre;
+        String result = "Album; Name = "+ this.name + "; Genre = " + this.genre;
         return result;
     }
 

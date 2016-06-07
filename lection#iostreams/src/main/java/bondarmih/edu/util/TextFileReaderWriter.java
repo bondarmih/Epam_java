@@ -1,17 +1,14 @@
 package bondarmih.edu.util;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by bondarm on 25.05.16.
  */
-public class TextFileReader {
-    private static String filePath = "./src/main/resources/";
+public class TextFileReaderWriter {
+    private static String filePath = "./";
 
     public static List<String> readFromFile (String fileName) {
         try {
@@ -32,4 +29,18 @@ public class TextFileReader {
         }
         return null;
     }
+
+    public static void writeToFile (List<String> dataStringList, String fileName) {
+        try {
+            BufferedWriter textFileWriter = new BufferedWriter(new FileWriter(new File(filePath+fileName)));
+            for (String currentLine : dataStringList) {
+                textFileWriter.write(currentLine);
+                textFileWriter.newLine();
+            }
+            textFileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
