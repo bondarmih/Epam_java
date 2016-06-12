@@ -2,15 +2,10 @@ package bondarmih.edu.application;
 
 
 import bondarmih.edu.catalog.Catalog;
+import bondarmih.edu.persistence.serializator.CatalogSerializer;
+import bondarmih.edu.persistence.serializator.binarySerializator.CatalogBinarySerializer;
 import bondarmih.edu.util.CatalogCreator;
-import bondarmih.edu.serializator.CatalogSerializatorImpl;
-import bondarmih.edu.util.TextFileReaderWriter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import bondarmih.edu.persistence.serializator.txtserializator.CatalogTextSerializer;
 
 /**
  * Created by bondarm on 05.06.16.
@@ -18,9 +13,11 @@ import java.util.regex.Pattern;
 public class Runner extends Thread {
     public void run() {
         Catalog catalog = CatalogCreator.createCatalog();
-        CatalogSerializatorImpl catalogSerializator = new CatalogSerializatorImpl();
-        catalogSerializator.serializeCatalog(catalog);
-        Catalog elseCatalog = catalogSerializator.deserializeCatalog();
-        elseCatalog.printCatalog();
+        CatalogSerializer catalogSerializer = new CatalogBinarySerializer();
+        catalogSerializer.serializeCatalog(catalog);
+        Catalog elseCatalog = catalogSerializer.deserializeCatalog();
+        CatalogSerializer elseCatalogSerializer = new CatalogTextSerializer();
+        elseCatalogSerializer.serializeCatalog(elseCatalog);
+        Catalog oneMoreCatalog = elseCatalogSerializer.deserializeCatalog();
     }
 }

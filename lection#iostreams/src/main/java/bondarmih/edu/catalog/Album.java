@@ -17,21 +17,31 @@ public class Album {
         this.trackList = new ArrayList<Track>();
     }
 
+    public Album(String name, String genre, List<Track> trackList) {
+        this(name,genre);
+        for (Track track: trackList) {
+            this.addTrack(track);
+        }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getGenre() {
+        return this.genre;
+    }
+
+    public List<Track> getTracklist() {
+        return new ArrayList<>(this.trackList);
+    }
+
     public void  addTrack(Track track) {
         this.trackList.add(track);
     }
 
     public String toString() {
         String result = "Album; Name = "+ this.name + "; Genre = " + this.genre;
-        return result;
-    }
-
-    public List<String> toStringList() {
-        List<String> result = new ArrayList<String>();
-        result.add(this.toString());
-        for (Track track:trackList) {
-            result.add(track.toString());
-        }
         return result;
     }
 }

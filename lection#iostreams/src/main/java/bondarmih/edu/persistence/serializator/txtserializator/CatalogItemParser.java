@@ -1,4 +1,4 @@
-package bondarmih.edu.serializator;
+package bondarmih.edu.persistence.serializator.txtserializator;
 
 import bondarmih.edu.catalog.Album;
 import bondarmih.edu.catalog.Artist;
@@ -28,10 +28,9 @@ public class CatalogItemParser {
                 List<String> currentArtistList = getItemsStringLists(stringList, "Artist");
                 stringList.removeAll(currentArtistList);
                 Artist currentArtist = parseArtist(currentArtistList);
-                if (currentArtist != null && isValidArtist(currentArtist)) {
+                if (isValidArtist(currentArtist)) {
                     result.addArtist(currentArtist);
                 }
-
             }
             return result;
         } else {
@@ -51,7 +50,7 @@ public class CatalogItemParser {
             List<String> currentAlbumList = getItemsStringLists(stringList, "Album");
             stringList.removeAll(currentAlbumList);
             Album currentAlbum = parseAlbum(currentAlbumList);
-            if (currentAlbum != null && isValidAlbum(currentAlbum)) {
+            if (isValidAlbum(currentAlbum)) {
                 result.addAlbum(currentAlbum);
             }
 
@@ -70,7 +69,7 @@ public class CatalogItemParser {
         stringList.remove(0);
         for (String currentTrackString : stringList) {
             Track currentTrack = parseTrack(currentTrackString);
-            if (currentTrack != null && isValidTrack(currentTrack)) {
+            if (isValidTrack(currentTrack)) {
                 result.addTrack(currentTrack);
             }
         }
@@ -118,14 +117,38 @@ public class CatalogItemParser {
         return matcher.matches();
     }
     private boolean isValidArtist(Artist artist) {
+        if (artist == null) {
+            return false;
+        }
+        if (artist.getAlbums() == null) {
+            return false;
+        }
+        if (artist.getAlbums().size() == 0) {
+            return false;
+        }
         return true;
     }
 
     private boolean isValidAlbum(Album album) {
+        if (album == null) {
+            return false;
+        }
+        if (album.getTracklist() == null) {
+            return false;
+        }
+        if (album.getTracklist().size() == 0) {
+            return false;
+        }
         return true;
     }
 
     private boolean isValidTrack(Track track) {
+        if (track == null) {
+            return false;
+        }
+        if (track.getLength() == 0) {
+            return false;
+        }
         return true;
     }
 

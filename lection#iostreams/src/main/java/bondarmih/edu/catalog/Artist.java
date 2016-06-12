@@ -16,21 +16,27 @@ public class Artist{
         this.albums = new ArrayList<Album>();
     }
 
+    public Artist (String name, List<Album> albums) {
+        this(name);
+        for (Album album: albums) {
+            this.addAlbum(album);
+        }
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public List<Album> getAlbums() {
+        return new ArrayList<Album>(this.albums);
+    }
+
     public void addAlbum (Album album) {
         this.albums.add(album);
     }
 
     public String toString() {
         String result = "Artist; Name = " + this.name;
-        return result;
-    }
-
-    public List<String> toStringList() {
-        List<String> result = new ArrayList<String>();
-        result.add(this.toString());
-        for (Album album:albums) {
-            result.addAll(album.toStringList());
-        }
         return result;
     }
 }

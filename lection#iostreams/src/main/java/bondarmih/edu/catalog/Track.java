@@ -12,6 +12,14 @@ public class Track {
         this.length = length;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public int getLength() {
+        return this.length;
+    }
+
     private String lengthToString() {
         String result = (this.length / 60) + "m" + String.format("%2d",this.length%60) + "s";
         return result;
