@@ -9,24 +9,23 @@ import bondarmih.edu.catalog.Track;
  * Created by bondarm on 06.06.16.
  */
 public class CatalogCreator {
-    public static Catalog createCatalog() {
+    public static Catalog getCatalogInstance(int artistCount, int albumCount, int trackCount) {
         Catalog catalog = new Catalog();
-        Artist[] artists = new Artist[10];
-        for (int i = 0; i < 10; i++) {
-            artists[i] = new Artist("Artist#" + i);
-            Album[] albums = new Album[2];
-            for (int j = 0; j < 2; j++) {
-                albums[j] = new Album("Album#" + i + "-" + j, "Genre#" + j);
-                Track[] tracks = new Track[5];
-                for (int k = 0; k < 5; k++) {
-                    tracks[k] = new Track("Song#" + i + "-" + j + "-" + k, 100);
-                    albums[j].addTrack(tracks[k]);
+        for (int i = 0; i < artistCount; i++) {
+            Artist artist = new Artist("Artist#" + i);
+            for (int j = 0; j < albumCount; j++) {
+                Album album = new Album("Album#" + i + "-" + j, "Genre#" + j);
+                for (int k = 0; k < trackCount; k++) {
+                    Track track = new Track("Song#" + i + "-" + j + "-" + k, 100);
+                    album.addTrack(track);
                 }
-                artists[i].addAlbum(albums[j]);
+                artist.addAlbum(album);
             }
-            catalog.addArtist(artists[i]);
+            catalog.addArtist(artist);
         }
         return catalog;
 
     }
+
+
 }

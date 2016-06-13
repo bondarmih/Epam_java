@@ -1,8 +1,6 @@
-package bondarmih.edu.persistence.serializator;
+package bondarmih.edu.persistence.serializer;
 
 import bondarmih.edu.catalog.Catalog;
-
-import java.io.Serializable;
 
 /**
  * Created by bondarm on 05.06.16.

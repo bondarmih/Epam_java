@@ -1,7 +1,7 @@
-package bondarmih.edu.persistence.serializator.txtserializator;
+package bondarmih.edu.persistence.serializer.txt;
 
 import bondarmih.edu.catalog.Catalog;
-import bondarmih.edu.persistence.serializator.CatalogSerializer;
+import bondarmih.edu.persistence.serializer.CatalogSerializer;
 import bondarmih.edu.util.TextFileReaderWriter;
 
 import java.util.List;
@@ -10,15 +10,17 @@ import java.util.List;
  * Created by bondarm on 06.06.16.
  */
 public class CatalogTextSerializer implements CatalogSerializer {
-    public static String filename = "catalogText.txt";
+    private final String filename = "catalogText.txt";
 
+    @Override
     public void serializeCatalog(Catalog catalog) {
-        TextFileReaderWriter.writeToFile(CatalogTextMapper.CatalogtoStringList(catalog), filename);
+        TextFileReaderWriter.writeToFile(CatalogTextParserMapper.catalogToStringList(catalog), filename);
     }
 
+    @Override
     public Catalog deserializeCatalog() {
         List<String> catalogStringList = TextFileReaderWriter.readFromFile(filename);
-        Catalog result = new CatalogItemParser().parseCatalog(catalogStringList);
+        Catalog result = new CatalogTextParserMapper().parseCatalog(catalogStringList);
         if (result != null) {
             return result;
         } else {

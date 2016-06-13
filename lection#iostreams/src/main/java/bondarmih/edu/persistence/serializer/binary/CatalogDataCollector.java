@@ -1,4 +1,4 @@
-package bondarmih.edu.persistence.serializator.binarySerializator;
+package bondarmih.edu.persistence.serializer.binary;
 
 import bondarmih.edu.catalog.Album;
 import bondarmih.edu.catalog.Artist;

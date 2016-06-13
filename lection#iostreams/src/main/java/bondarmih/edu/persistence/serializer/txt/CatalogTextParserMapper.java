@@ -1,4 +1,4 @@
-package bondarmih.edu.persistence.serializator.txtserializator;
+package bondarmih.edu.persistence.serializer.txt;
 
 import bondarmih.edu.catalog.Album;
 import bondarmih.edu.catalog.Artist;
@@ -12,21 +12,20 @@ import java.util.regex.Pattern;
 /**
  * Created by bondarm on 06.06.16.
  */
-public class CatalogItemParser {
+public class CatalogTextParserMapper {
+    private static final Pattern catalogPattern = Pattern.compile("^Catalog$");
     private static final Pattern artistPattern = Pattern.compile("^.*Artist; Name = .+$");
     private static final Pattern albumPattern = Pattern.compile("^.*Album; Name = .+; Genre = .+$");
     private static final Pattern trackPattern = Pattern.compile("^.*Track; Name = .+; Length = \\d+m[0-5]\\ds$");
 
-
     public Catalog parseCatalog (List<String> stringList) {
-
-        boolean catalogIsNotEmpty = (stringList!=null) &&  !stringList.isEmpty();
-        if (catalogIsNotEmpty && stringList.get(0).contains("Catalog")) {
+        if (isValidList(stringList)) {
             Catalog result = new Catalog();
             stringList.remove(0);
             while (!stringList.isEmpty()) {
-                List<String> currentArtistList = getItemsStringLists(stringList, "Artist");
-                stringList.removeAll(currentArtistList);
+                int currentArtistUpperBound = getCurrentItemUpperBound(stringList, "Artist");
+                List<String> currentArtistList = new ArrayList<>(stringList.subList(0,currentArtistUpperBound));
+                trimListStart(stringList, currentArtistUpperBound);
                 Artist currentArtist = parseArtist(currentArtistList);
                 if (isValidArtist(currentArtist)) {
                     result.addArtist(currentArtist);
@@ -38,6 +37,10 @@ public class CatalogItemParser {
         }
     }
 
+    private boolean isValidList(List<String> stringList) {
+        return (stringList != null) && !stringList.isEmpty() && isValidItem(stringList.get(0), catalogPattern);
+    }
+
     private Artist parseArtist (List<String> stringList) {
         if (!isValidItem(stringList.get(0), artistPattern)) {
             return null;
@@ -47,8 +50,9 @@ public class CatalogItemParser {
         Artist result = new Artist(artistName);
         stringList.remove(0);
         while (!stringList.isEmpty()) {
-            List<String> currentAlbumList = getItemsStringLists(stringList, "Album");
-            stringList.removeAll(currentAlbumList);
+            int currentAlbumUpperBound = getCurrentItemUpperBound(stringList, "Album");
+            List<String> currentAlbumList = new ArrayList<>(stringList.subList(0,currentAlbumUpperBound));
+            trimListStart(stringList, currentAlbumUpperBound);
             Album currentAlbum = parseAlbum(currentAlbumList);
             if (isValidAlbum(currentAlbum)) {
                 result.addAlbum(currentAlbum);
@@ -102,14 +106,21 @@ public class CatalogItemParser {
         return tokenList;
     }
 
-    private List<String> getItemsStringLists(List<String> stringList, String otherItemKey) {
+    private int getCurrentItemUpperBound(List<String> stringList, String otherItemKey) {
         for (int i = 1; i < stringList.size(); i++) {
             if (stringList.get(i).startsWith(otherItemKey)) {
-                List<String> result = new ArrayList<>(stringList.subList(0,i));
-                return result;
+                return i;
             }
         }
-        return new ArrayList<>(stringList);
+        return stringList.size();
+    }
+
+    public void trimListStart(List<String> stringList, int edgeIndex) {
+        int currentIndex = 0;
+        while (currentIndex < edgeIndex) {
+            stringList.remove(0);
+            currentIndex++;
+        }
     }
 
     private boolean isValidItem(String itemString, Pattern pattern) {
@@ -117,39 +128,62 @@ public class CatalogItemParser {
         return matcher.matches();
     }
     private boolean isValidArtist(Artist artist) {
-        if (artist == null) {
-            return false;
-        }
-        if (artist.getAlbums() == null) {
-            return false;
-        }
-        if (artist.getAlbums().size() == 0) {
-            return false;
-        }
-        return true;
+        return (artist != null) && (artist.getAlbums() != null) && (artist.getAlbums().size() != 0);
     }
 
     private boolean isValidAlbum(Album album) {
-        if (album == null) {
-            return false;
-        }
-        if (album.getTracklist() == null) {
-            return false;
-        }
-        if (album.getTracklist().size() == 0) {
-            return false;
-        }
-        return true;
+        return (album != null) && (album.getTracklist() != null) && (album.getTracklist().size() != 0);
     }
 
     private boolean isValidTrack(Track track) {
-        if (track == null) {
-            return false;
+       return (track != null) && (track.getLength() != 0);
+    }
+
+    public static List<String> catalogToStringList(Catalog catalog){
+        List<String> result = new ArrayList<>();
+        result.add(getCatalogHeader());
+        for (Artist artist : catalog.getArtists()) {
+            result.addAll(artistToStringList(artist));
         }
-        if (track.getLength() == 0) {
-            return false;
+        return result;
+    }
+
+    private static List<String> artistToStringList(Artist artist) {
+        List<String> result = new ArrayList<>();
+        result.add(getArtistHeader(artist));
+        for (Album album:artist.getAlbums()) {
+            result.addAll(albumToStringList(album));
         }
-        return true;
+        return result;
+    }
+
+    private static List<String> albumToStringList(Album album) {
+        List<String> result = new ArrayList<>();
+        result.add(getAlbumHeader(album));
+        for (Track track:album.getTracklist()) {
+            result.add(trackToString(track));
+        }
+        return result;
+    }
+
+    private static String trackToString (Track track) {
+        return "Track; Name = " + track.getName() + "; Length = " + trackLengthToString(track.getLength());
+    }
+
+    private static String getCatalogHeader() {
+        return  "Catalog";
+    }
+
+    private static String getArtistHeader(Artist artist) {
+        return  "Artist; Name = " + artist.getName();
+    }
+
+    private static String getAlbumHeader(Album album) {
+        return  "Album; Name = "+ album.getName() + "; Genre = " + album.getGenre();
+    }
+
+    private static String trackLengthToString(int length) {
+        return  (length / 60) + "m" + String.format("%2d",length%60) + "s";
     }
 
 }
