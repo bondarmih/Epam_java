@@ -21,7 +21,7 @@ public class CatalogTextParserMapper {
     public Catalog parseCatalog (List<String> stringList) {
         if (isValidList(stringList)) {
             Catalog result = new Catalog();
-            stringList.remove(0);
+            removeItemHeader(stringList);
             while (!stringList.isEmpty()) {
                 int currentArtistUpperBound = getCurrentItemUpperBound(stringList, "Artist");
                 List<String> currentArtistList = new ArrayList<>(stringList.subList(0,currentArtistUpperBound));
@@ -48,7 +48,7 @@ public class CatalogTextParserMapper {
         List<String> tokenList = getTokens(stringList.get(0));
         String artistName = tokenList.get(2);
         Artist result = new Artist(artistName);
-        stringList.remove(0);
+        removeItemHeader(stringList);
         while (!stringList.isEmpty()) {
             int currentAlbumUpperBound = getCurrentItemUpperBound(stringList, "Album");
             List<String> currentAlbumList = new ArrayList<>(stringList.subList(0,currentAlbumUpperBound));
@@ -70,7 +70,7 @@ public class CatalogTextParserMapper {
         String albumName = tokenList.get(2);
         String albumGenre = tokenList.get(4);
         Album result = new Album(albumName,albumGenre);
-        stringList.remove(0);
+        removeItemHeader(stringList);
         for (String currentTrackString : stringList) {
             Track currentTrack = parseTrack(currentTrackString);
             if (isValidTrack(currentTrack)) {
