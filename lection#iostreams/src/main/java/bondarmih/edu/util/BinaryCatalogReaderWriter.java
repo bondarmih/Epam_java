@@ -8,15 +8,13 @@ import java.io.*;
  * Created by bondarm on 12.06.16.
  */
 public class BinaryCatalogReaderWriter {
-    private static final String filePath = "./";
-
     public static void writeToFile(CatalogDataObject catalog, String fileName) throws IllegalStateException {
 
         try {
             ObjectOutputStream out =
                     new ObjectOutputStream(
                             new BufferedOutputStream(
-                                    new FileOutputStream(filePath + fileName)));
+                                    new FileOutputStream(fileName)));
             out.writeObject(catalog);
             out.flush();
             out.close();
@@ -30,7 +28,7 @@ public class BinaryCatalogReaderWriter {
         try {
             ObjectInputStream in = new ObjectInputStream(
                     new BufferedInputStream(
-                            new FileInputStream(filePath + filename)));
+                            new FileInputStream(filename)));
             CatalogDataObject catalogDO = (CatalogDataObject)in.readObject();
             in.close();
             return catalogDO;

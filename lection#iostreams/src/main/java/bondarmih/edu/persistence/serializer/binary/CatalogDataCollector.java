@@ -17,65 +17,65 @@ import java.util.stream.Collectors;
  */
 public class CatalogDataCollector {
 
-    public static CatalogDataObject toCatalogDO(Catalog catalog) {
+    public CatalogDataObject toCatalogDO(Catalog catalog) {
         List<ArtistDataObject> artists = catalog
                 .getArtists()
                 .stream()
-                .map(CatalogDataCollector::toArtistDO)
+                .map(this::toArtistDO)
                 .collect(Collectors.toList());
         return new CatalogDataObject(artists);
     }
 
-    private static ArtistDataObject toArtistDO(Artist artist) {
+    private ArtistDataObject toArtistDO(Artist artist) {
         List<AlbumDataObject> albums = artist
                 .getAlbums()
                 .stream()
-                .map(CatalogDataCollector::toAlbumDO)
+                .map(this::toAlbumDO)
                 .collect(Collectors.toList());
         return new ArtistDataObject(artist.getName(), albums);
     }
 
-    private static AlbumDataObject toAlbumDO(Album album) {
+    private AlbumDataObject toAlbumDO(Album album) {
         List<TrackDataObject> trackList = album
                 .getTracklist()
                 .stream()
-                .map(CatalogDataCollector::toTrackDO)
+                .map(this::toTrackDO)
                 .collect(Collectors.toList());
         return new AlbumDataObject(album.getName(), album.getGenre(), trackList);
     }
 
-    private static TrackDataObject toTrackDO(Track track) {
+    private TrackDataObject toTrackDO(Track track) {
         return new TrackDataObject(track.getName(), track.getLength());
     }
 
-    public static Catalog toCatalog(CatalogDataObject catalogDO) {
+    public Catalog toCatalog(CatalogDataObject catalogDO) {
         List<Artist> artists = catalogDO
                 .getArtists()
                 .stream()
-                .map(CatalogDataCollector::toArtist)
+                .map(this::toArtist)
                 .collect(Collectors.toList());
         return new Catalog(artists);
     }
 
-    private static Artist toArtist(ArtistDataObject artistDO) {
+    private Artist toArtist(ArtistDataObject artistDO) {
         List<Album> albums = artistDO
                 .getAlbums()
                 .stream()
-                .map(CatalogDataCollector::toAlbum)
+                .map(this::toAlbum)
                 .collect(Collectors.toList());
         return new Artist(artistDO.getName(), albums);
     }
 
-    private static Album toAlbum(AlbumDataObject albumDO) {
+    private Album toAlbum(AlbumDataObject albumDO) {
         List<Track> trackList = albumDO
                 .getTracks()
                 .stream()
-                .map(CatalogDataCollector::toTrack)
+                .map(this::toTrack)
                 .collect(Collectors.toList());
         return new Album(albumDO.getName(), albumDO.getGenre(), trackList);
     }
 
-    private static Track toTrack(TrackDataObject trackDO) {
+    private Track toTrack(TrackDataObject trackDO) {
         return new Track(trackDO.getName(), trackDO.getLength());
     }
 }

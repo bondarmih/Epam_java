@@ -90,14 +90,14 @@ public class CatalogTextParserMapper {
         return new Track(trackName, trackLength);
     }
 
-    private static int parseTrackLength(String lengthString) {
+    private int parseTrackLength(String lengthString) {
         StringTokenizer stringTokenizer = new StringTokenizer(lengthString, "ms");
         int minutes = Integer.valueOf(stringTokenizer.nextToken());
         int seconds = Integer.valueOf(stringTokenizer.nextToken());
         return 60* minutes + seconds;
     }
 
-    private static List<String> getTokens(String itemString) {
+    private List<String> getTokens(String itemString) {
         StringTokenizer stringTokenizer = new StringTokenizer(itemString,";=");
         List<String> tokenList = new ArrayList<>();
         while (stringTokenizer.hasMoreTokens()) {
@@ -139,7 +139,7 @@ public class CatalogTextParserMapper {
        return (track != null) && (track.getLength() != 0);
     }
 
-    public static List<String> catalogToStringList(Catalog catalog){
+    public List<String> catalogToStringList(Catalog catalog){
         List<String> result = new ArrayList<>();
         result.add(getCatalogHeader());
         for (Artist artist : catalog.getArtists()) {
@@ -148,7 +148,7 @@ public class CatalogTextParserMapper {
         return result;
     }
 
-    private static List<String> artistToStringList(Artist artist) {
+    private List<String> artistToStringList(Artist artist) {
         List<String> result = new ArrayList<>();
         result.add(getArtistHeader(artist));
         for (Album album:artist.getAlbums()) {
@@ -157,7 +157,7 @@ public class CatalogTextParserMapper {
         return result;
     }
 
-    private static List<String> albumToStringList(Album album) {
+    private List<String> albumToStringList(Album album) {
         List<String> result = new ArrayList<>();
         result.add(getAlbumHeader(album));
         for (Track track:album.getTracklist()) {
@@ -166,24 +166,28 @@ public class CatalogTextParserMapper {
         return result;
     }
 
-    private static String trackToString (Track track) {
+    private String trackToString (Track track) {
         return "Track; Name = " + track.getName() + "; Length = " + trackLengthToString(track.getLength());
     }
 
-    private static String getCatalogHeader() {
+    private String getCatalogHeader() {
         return  "Catalog";
     }
 
-    private static String getArtistHeader(Artist artist) {
+    private String getArtistHeader(Artist artist) {
         return  "Artist; Name = " + artist.getName();
     }
 
-    private static String getAlbumHeader(Album album) {
+    private String getAlbumHeader(Album album) {
         return  "Album; Name = "+ album.getName() + "; Genre = " + album.getGenre();
     }
 
-    private static String trackLengthToString(int length) {
+    private String trackLengthToString(int length) {
         return  (length / 60) + "m" + String.format("%2d",length%60) + "s";
+    }
+
+    private void removeItemHeader(List<String> stringList) {
+        stringList.remove(0);
     }
 
 }

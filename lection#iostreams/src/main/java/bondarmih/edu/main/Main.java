@@ -13,6 +13,8 @@ public class Main {
             catalogThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
+            System.out.println("Main thread interrupted, exiting...");
+            System.exit(-1);
         }
     }
 }

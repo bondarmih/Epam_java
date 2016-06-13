@@ -8,11 +8,9 @@ import java.util.List;
  * Created by bondarm on 25.05.16.
  */
 public class TextFileReaderWriter {
-    private static final String filePath = "./";
-
     public static List<String> readFromFile (String fileName) throws IllegalStateException {
         try {
-            BufferedReader textFileReader = new BufferedReader(new FileReader(filePath+fileName));
+            BufferedReader textFileReader = new BufferedReader(new FileReader(fileName));
             String currentLine;
             ArrayList<String> result = new ArrayList<>();
             while ((currentLine = textFileReader.readLine()) != null) {
@@ -31,7 +29,7 @@ public class TextFileReaderWriter {
 
     public static void writeToFile (List<String> dataStringList, String fileName) throws IllegalStateException {
         try {
-            BufferedWriter textFileWriter = new BufferedWriter(new FileWriter(new File(filePath+fileName)));
+            BufferedWriter textFileWriter = new BufferedWriter(new FileWriter(new File(fileName)));
             for (String currentLine : dataStringList) {
                 textFileWriter.write(currentLine);
                 textFileWriter.newLine();
