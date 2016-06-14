@@ -13,17 +13,30 @@ import java.util.regex.Pattern;
  * Created by bondarm on 06.06.16.
  */
 public class CatalogTextParserMapper {
-    private static final Pattern catalogPattern = Pattern.compile("^Catalog$");
-    private static final Pattern artistPattern = Pattern.compile("^.*Artist; Name = .+$");
-    private static final Pattern albumPattern = Pattern.compile("^.*Album; Name = .+; Genre = .+$");
-    private static final Pattern trackPattern = Pattern.compile("^.*Track; Name = .+; Length = \\d+m[0-5]\\ds$");
+    private static final String ARTIST_SER_STRING = "Artist";
+    private static final String ALBUM_SER_STRING = "Album";
+    private static final String TRACK_SER_STRING = "Artist";
+    private static final String TRACK_LENGTH_MINUTE_SER_STRING = "m";
+    private static final String TRACK_LENGTH_SECOND_SER_STRING = "s";
+    private static final Character ATTR_DIVIDER = ';';
+    private static final Character ATTR_EQ = '=';
+    private static final Pattern CATALOG_PATTERN = Pattern.compile("^Catalog$");
+    private static final Pattern ARTIST_PATTERN = Pattern.compile(
+            "^.*" + ARTIST_SER_STRING + ATTR_DIVIDER +" Name = .+$");
+    private static final Pattern ALBUM_PATTERN = Pattern.compile(
+            "^.*" + ALBUM_SER_STRING + ATTR_DIVIDER +" Name = .+" + ATTR_DIVIDER + " Genre = .+$");
+    private static final Pattern TRACK_PATTERN = Pattern.compile(
+            "^.*" + TRACK_SER_STRING + ATTR_DIVIDER +" Name = .+" + ATTR_DIVIDER + " Length = \\d+m[0-5]\\ds$");
+
+
+
 
     public Catalog parseCatalog (List<String> stringList) {
         if (isValidList(stringList)) {
             Catalog result = new Catalog();
             removeItemHeader(stringList);
             while (!stringList.isEmpty()) {
-                int currentArtistUpperBound = getCurrentItemUpperBound(stringList, "Artist");
+                int currentArtistUpperBound = getCurrentItemUpperBound(stringList, ARTIST_SER_STRING);
                 List<String> currentArtistList = new ArrayList<>(stringList.subList(0,currentArtistUpperBound));
                 trimListStart(stringList, currentArtistUpperBound);
                 Artist currentArtist = parseArtist(currentArtistList);
@@ -38,11 +51,11 @@ public class CatalogTextParserMapper {
     }
 
     private boolean isValidList(List<String> stringList) {
-        return (stringList != null) && !stringList.isEmpty() && isValidItem(stringList.get(0), catalogPattern);
+        return (stringList != null) && !stringList.isEmpty() && isValidItem(stringList.get(0), CATALOG_PATTERN);
     }
 
     private Artist parseArtist (List<String> stringList) {
-        if (!isValidItem(stringList.get(0), artistPattern)) {
+        if (!isValidItem(stringList.get(0), ARTIST_PATTERN)) {
             return null;
         }
         List<String> tokenList = getTokens(stringList.get(0));
@@ -50,7 +63,7 @@ public class CatalogTextParserMapper {
         Artist result = new Artist(artistName);
         removeItemHeader(stringList);
         while (!stringList.isEmpty()) {
-            int currentAlbumUpperBound = getCurrentItemUpperBound(stringList, "Album");
+            int currentAlbumUpperBound = getCurrentItemUpperBound(stringList, ALBUM_SER_STRING);
             List<String> currentAlbumList = new ArrayList<>(stringList.subList(0,currentAlbumUpperBound));
             trimListStart(stringList, currentAlbumUpperBound);
             Album currentAlbum = parseAlbum(currentAlbumList);
@@ -63,7 +76,7 @@ public class CatalogTextParserMapper {
     }
 
     private Album parseAlbum (List<String> stringList) {
-        if (!isValidItem(stringList.get(0), albumPattern)) {
+        if (!isValidItem(stringList.get(0), ALBUM_PATTERN)) {
             return null;
         }
         List<String> tokenList = getTokens(stringList.get(0));
@@ -81,7 +94,7 @@ public class CatalogTextParserMapper {
     }
 
     private Track parseTrack (String itemString) {
-        if (!isValidItem(itemString, trackPattern)) {
+        if (!isValidItem(itemString, TRACK_PATTERN)) {
             return null;
         }
         List<String> tokenList = getTokens(itemString);
@@ -91,14 +104,15 @@ public class CatalogTextParserMapper {
     }
 
     private int parseTrackLength(String lengthString) {
-        StringTokenizer stringTokenizer = new StringTokenizer(lengthString, "ms");
+        StringTokenizer stringTokenizer =
+                new StringTokenizer(lengthString, TRACK_LENGTH_MINUTE_SER_STRING + TRACK_LENGTH_SECOND_SER_STRING);
         int minutes = Integer.valueOf(stringTokenizer.nextToken());
         int seconds = Integer.valueOf(stringTokenizer.nextToken());
         return 60* minutes + seconds;
     }
 
     private List<String> getTokens(String itemString) {
-        StringTokenizer stringTokenizer = new StringTokenizer(itemString,";=");
+        StringTokenizer stringTokenizer = new StringTokenizer(itemString, ATTR_DIVIDER.toString() + ATTR_EQ.toString());
         List<String> tokenList = new ArrayList<>();
         while (stringTokenizer.hasMoreTokens()) {
             tokenList.add(stringTokenizer.nextToken().trim());
