@@ -11,16 +11,12 @@ public class CacheFactory {
 
     public static Class[] getCaches(){
 
-        try {
-            Class[] cacheList = {
-                    Class.forName("bondarmih.edu.cache.HourlyCache"),
-                    Class.forName("bondarmih.edu.cache.DailyCache"),
-                    Class.forName("bondarmih.edu.cache.WeeklyCache")
-            };
-            return cacheList;
-        } catch (ClassNotFoundException e) {
-            throw new IllegalStateException("Cache class not found in bondarmih.edu.cache");
-        }
+        Class[] cacheList = {
+                bondarmih.edu.cache.HourlyCache.class,
+                bondarmih.edu.cache.DailyCache.class,
+                bondarmih.edu.cache.WeeklyCache.class
+        };
+        return cacheList;
     }
 
     @Nullable
@@ -32,10 +28,11 @@ public class CacheFactory {
         } catch (InstantiationException e) {
             System.out.println("Can not initiate new instance of " + cacheClass.getName());
             e.printStackTrace();
+            System.exit(-1);
         } catch (IllegalAccessException e) {
+            System.out.println("Can not get access to " + cacheClass.getName());
             e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            System.exit(-1);
         }
         return null;
     }

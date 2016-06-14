@@ -1,8 +1,11 @@
 package bondarmih.edu.injector;
 
+import bondarmih.edu.cache.Cache;
 import bondarmih.edu.classinspector.ClassInspector;
 import bondarmih.edu.cache.*;
+import bondarmih.edu.util.*;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,46 +25,43 @@ public class Injector {
         System.out.println(fieldList.size() + " field(s) found");
         for (Field field: fieldList) {
             if (field == null) throw new IllegalArgumentException("Injected cache is null.");
-            System.out.println("Class name: " + field.getDeclaringClass() +", Field name: "+ field.getName());
-
-            String annotateCache = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
-            Class<Cache>[] caches;
-            Cache injectedCache = null;
-            try {
-                 caches = CacheFactory.getCaches();
-                for (int i = 0; i < caches.length; i++) {
-                    boolean isAnnotationForCache = ClassInspector.isAnnotaionExist(caches[i], bondarmih.edu.util.Cache.class);
-                    if (isAnnotationForCache ){
-                        String cacheNameValue = caches[i].getAnnotation(bondarmih.edu.util.Cache.class).name();
-                        boolean isAnnotationCacheNamesEquals = cacheNameValue.equals(annotateCache);
-                        if (isAnnotationCacheNamesEquals) {
-                            injectedCache = CacheFactory.getCache(caches[i]);
-                            break;
-                        }
-                    }
-                }
-            } catch (IllegalStateException e) {
-                System.out.println("Can not get Cache from CacheFactory");
-            }
-            if (injectedCache != null) {
-                try {
-                    field.setAccessible(true);
-                    field.set(target, injectedCache);
-                    System.out.println("Cache " + injectedCache.toString() + " is injected to consumer " + target.toString());
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                }
-            } else {
-                System.out.println("Nothing to inject. Can not find proper cache class for annotation "+ annotateCache);
-                throw new IllegalStateException();
-            }
-
+            processField(field, target);
         }
     }
 
+    private static void processField(Field field, Object target) {
+        System.out.println("Class name: " + field.getDeclaringClass() +", Field name: "+ field.getName());
+        String annotateCache = field.getAnnotation(bondarmih.edu.util.InjectCache.class).cacheName();
+        Cache injectedCache = findCache(annotateCache);
+        if (injectedCache != null) {
+            try {
+                field.setAccessible(true);
+                field.set(target, injectedCache);
+                System.out.println("Cache " + injectedCache.toString() + " is injected to consumer " + target.toString());
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                System.out.println("Injection to field failed: access error. Field: " + field.toString() + " in class" +target.getClass());
+                System.exit(-1);
+            }
+        } else {
+            System.out.println("Nothing to inject. Can not find proper cache class for annotation "+ annotateCache);
+            System.exit(-1);
+        }
+    }
 
-
-
+    private static Cache findCache(String cacheAnnotationString) {
+        Class[] caches = CacheFactory.getCaches();
+        for (int i = 0; i < caches.length; i++) {
+            if (caches[i].isAnnotationPresent(bondarmih.edu.util.Cache.class)) {
+                bondarmih.edu.util.Cache cache =
+                        (bondarmih.edu.util.Cache) caches[i].getAnnotation(bondarmih.edu.util.Cache.class);
+                String cacheNameValue = cache.name();
+                boolean isAnnotationCacheNamesEquals = cacheNameValue.equals(cacheAnnotationString);
+                if (isAnnotationCacheNamesEquals) {
+                    return CacheFactory.getCache(caches[i]);
+                }
+            }
+        }
+        return null;
+    }
 }
