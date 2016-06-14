@@ -13,23 +13,21 @@ import java.util.regex.Pattern;
  * Created by bondarm on 06.06.16.
  */
 public class CatalogTextParserMapper {
+    private static final String CATALOG_SER_STRING = "Catalog";
     private static final String ARTIST_SER_STRING = "Artist";
     private static final String ALBUM_SER_STRING = "Album";
     private static final String TRACK_SER_STRING = "Artist";
-    private static final String TRACK_LENGTH_MINUTE_SER_STRING = "m";
-    private static final String TRACK_LENGTH_SECOND_SER_STRING = "s";
+    private static final Character TRACK_LENGTH_MINUTE_SER_STRING = 'm';
+    private static final Character TRACK_LENGTH_SECOND_SER_STRING = 's';
     private static final Character ATTR_DIVIDER = ';';
     private static final Character ATTR_EQ = '=';
-    private static final Pattern CATALOG_PATTERN = Pattern.compile("^Catalog$");
+    private static final Pattern CATALOG_PATTERN = Pattern.compile("^" + CATALOG_SER_STRING + "$");
     private static final Pattern ARTIST_PATTERN = Pattern.compile(
             "^.*" + ARTIST_SER_STRING + ATTR_DIVIDER +" Name = .+$");
     private static final Pattern ALBUM_PATTERN = Pattern.compile(
             "^.*" + ALBUM_SER_STRING + ATTR_DIVIDER +" Name = .+" + ATTR_DIVIDER + " Genre = .+$");
     private static final Pattern TRACK_PATTERN = Pattern.compile(
             "^.*" + TRACK_SER_STRING + ATTR_DIVIDER +" Name = .+" + ATTR_DIVIDER + " Length = \\d+m[0-5]\\ds$");
-
-
-
 
     public Catalog parseCatalog (List<String> stringList) {
         if (isValidList(stringList)) {
@@ -105,7 +103,8 @@ public class CatalogTextParserMapper {
 
     private int parseTrackLength(String lengthString) {
         StringTokenizer stringTokenizer =
-                new StringTokenizer(lengthString, TRACK_LENGTH_MINUTE_SER_STRING + TRACK_LENGTH_SECOND_SER_STRING);
+                new StringTokenizer(lengthString, TRACK_LENGTH_MINUTE_SER_STRING.toString()
+                        + TRACK_LENGTH_SECOND_SER_STRING.toString());
         int minutes = Integer.valueOf(stringTokenizer.nextToken());
         int seconds = Integer.valueOf(stringTokenizer.nextToken());
         return 60* minutes + seconds;
@@ -181,23 +180,46 @@ public class CatalogTextParserMapper {
     }
 
     private String trackToString (Track track) {
-        return "Track; Name = " + track.getName() + "; Length = " + trackLengthToString(track.getLength());
+        return TRACK_SER_STRING
+                + ATTR_DIVIDER
+                + " Name "
+                + ATTR_EQ + " "
+                + track.getName()
+                + ATTR_DIVIDER
+                + " Length "
+                + ATTR_EQ + " "
+                + trackLengthToString(track.getLength());
     }
 
     private String getCatalogHeader() {
-        return  "Catalog";
+        return  CATALOG_SER_STRING;
     }
 
     private String getArtistHeader(Artist artist) {
-        return  "Artist; Name = " + artist.getName();
+        return  ARTIST_SER_STRING
+                + ATTR_DIVIDER
+                + "Name "
+                + ATTR_EQ + " "
+                + artist.getName();
     }
 
     private String getAlbumHeader(Album album) {
-        return  "Album; Name = "+ album.getName() + "; Genre = " + album.getGenre();
+        return  ALBUM_SER_STRING
+                + ATTR_DIVIDER
+                + "Name "
+                + ATTR_EQ + " "
+                + album.getName() + " "
+                + ATTR_DIVIDER + " "
+                + "Genre "
+                + ATTR_EQ + " "
+                + album.getGenre();
     }
 
     private String trackLengthToString(int length) {
-        return  (length / 60) + "m" + String.format("%2d",length%60) + "s";
+        return  (length / 60)
+                + TRACK_LENGTH_MINUTE_SER_STRING.toString()
+                + String.format("%2d",length%60)
+                + TRACK_LENGTH_SECOND_SER_STRING.toString();
     }
 
     private void removeItemHeader(List<String> stringList) {
