@@ -7,11 +7,7 @@ import bondarmih.edu.persistence.xml.XmlDocumentHolder;
 import bondarmih.edu.persistence.xml.XmlDocumentHolderFactory;
 import com.sun.istack.internal.Nullable;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
-
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -21,7 +17,7 @@ import java.util.StringTokenizer;
  */
 public class ArtistXmlDao implements ArtistDao {
     private static final String FILENAME = "catalog.xml";
-    private XmlDocumentHolder xmlDocumentHolder = new XmlDocumentHolderFactory().getXmlDocument();
+    private XmlDocumentHolder xmlDocumentHolder = new XmlDocumentHolderFactory().getXmlDocument(FILENAME);
 
     @Nullable
     public Artist selectById(int id) throws IllegalArgumentException {
