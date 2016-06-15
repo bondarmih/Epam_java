@@ -50,7 +50,7 @@ public class Album {
         this.genre = genre;
     }
     public List<Track> getTracklist() {
-        return new ArrayList<>(this.trackList);
+        return new ArrayList<Track>(this.trackList);
     }
 
     public void setTrackList(List<Track> trackList) {

@@ -1,4 +1,4 @@
-package bondarmih.edu.persistence.parser;
+package bondarmih.edu.persistence.xml;
 
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import org.w3c.dom.Document;
@@ -9,14 +9,14 @@ import java.io.IOException;
 /**
  * Created by bondarm on 14.06.16.
  */
-public class XmlAnalyzerFactory {
-    public XmlAnalyzer getXmlAnalyzer(String filename) throws SAXException, IOException {
+public class XmlDocumentHolderFactory {
+    public XmlDocumentHolder getXmlAnalyzer(String filename) throws SAXException, IOException {
         DOMParser parser = new DOMParser();
         try {
             parser.parse(filename);
             Document document = parser.getDocument();
             if (documentIsValid()) {
-                return new XmlAnalyzer(document);
+                return new XmlDocumentHolder(document);
             }
             else {
                 throw new IllegalStateException();
