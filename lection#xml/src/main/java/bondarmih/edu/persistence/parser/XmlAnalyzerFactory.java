@@ -10,7 +10,7 @@ import java.io.IOException;
  * Created by bondarm on 14.06.16.
  */
 public class XmlAnalyzerFactory {
-    public XmlAnalyzer getXmlAnalyzer(String filename) {
+    public XmlAnalyzer getXmlAnalyzer(String filename) throws SAXException, IOException {
         DOMParser parser = new DOMParser();
         try {
             parser.parse(filename);

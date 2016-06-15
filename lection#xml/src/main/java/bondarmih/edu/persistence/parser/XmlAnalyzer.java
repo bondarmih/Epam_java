@@ -1,6 +1,7 @@
 package bondarmih.edu.persistence.parser;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
@@ -13,6 +14,8 @@ public class XmlAnalyzer {
     }
 
     private NodeList getArtistNodes() {
-        return null;
+        Element root = document.getDocumentElement();
+        NodeList artistNodes = root.getElementsByTagName("artist");
+        return artistNodes;
     }
 }
