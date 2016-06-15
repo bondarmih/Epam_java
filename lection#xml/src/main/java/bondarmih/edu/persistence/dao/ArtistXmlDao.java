@@ -4,6 +4,7 @@ import bondarmih.edu.catalog.Album;
 import bondarmih.edu.catalog.Artist;
 import bondarmih.edu.catalog.Track;
 import bondarmih.edu.persistence.xml.XmlDocumentHolder;
+import com.sun.istack.internal.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -20,7 +21,7 @@ public class ArtistXmlDao implements ArtistDao {
     public ArtistXmlDao(XmlDocumentHolder xmlDocumentHolder) {
         this.xmlDocumentHolder = xmlDocumentHolder;
     }
-
+    @Nullable
     public Artist selectById(int id) throws IllegalArgumentException {
         Element artistElement = getElementByAttrbuteValue("artist", "id", Integer.toString(id));
         if (artistElement != null) {
@@ -28,7 +29,7 @@ public class ArtistXmlDao implements ArtistDao {
             List<Album> albumList = getAlbumList(artistElement);
             return new Artist(id, name, albumList);
         } else {
-            throw new IllegalArgumentException("No user with id = " + id);
+            return null;
         }
     }
 
@@ -42,15 +43,29 @@ public class ArtistXmlDao implements ArtistDao {
     }
 
     public void insert(Artist artist) {
-
+        if (!isArtistIdExist(artist.getId())) {
+            xmlDocumentHolder.getDocument().appendChild(setArtistElement(artist));
+        } else {
+            throw new IllegalArgumentException("Artist with id = " + artist.getId() + " is already exists.");
+        }
     }
 
     public void delete(int id) {
+        if (isArtistIdExist(id)) {
+            Element artistToDelete = getElementByAttrbuteValue("artist", "id", Integer.toString(id));
+            xmlDocumentHolder.getDocument().removeChild(artistToDelete);
+        }
 
     }
 
     public void update(Artist artist) {
+        if (isArtistIdExist(artist.getId())) {
+            Element artistToUpdate = getElementByAttrbuteValue("artist", "id", Integer.toString(artist.getId()));
+        }
+    }
 
+    private boolean isArtistIdExist(int id) {
+        return getElementByAttrbuteValue("artist", "id", Integer.toString(id)) != null;
     }
 
     private Artist getArtist(Element artistElement) {
@@ -117,11 +132,34 @@ public class ArtistXmlDao implements ArtistDao {
     private Element setAlbumElement(Album album) {
         Element albumElement = xmlDocumentHolder.getDocument().createElement("album");
         albumElement.setAttribute("id", Integer.toString(album.getId()));
-
+        Element albumName = xmlDocumentHolder.getDocument().createElement("name");
+        albumName.setTextContent(album.getName());
+        albumElement.appendChild(albumName);
+        Element albumGenre = xmlDocumentHolder.getDocument().createElement("genre");
+        albumGenre.setTextContent(album.getGenre());
+        albumElement.appendChild(albumGenre);
+        Element albumTracks = xmlDocumentHolder.getDocument().createElement("tracks");
+        for (Track track : album.getTracklist()) {
+            Element trackElement = setTrackElement(track);
+            albumTracks.appendChild(trackElement);
+        }
+        return albumElement;
     }
 
     private Element setTrackElement(Track track) {
+        Element trackElement = xmlDocumentHolder.getDocument().createElement("track");
+        trackElement.setAttribute("id", Integer.toString(track.getId()));
+        Element trackName = xmlDocumentHolder.getDocument().createElement("name");
+        trackName.setTextContent(track.getName());
+        trackElement.appendChild(trackName);
+        Element trackLength = xmlDocumentHolder.getDocument().createElement("length");
+        trackLength.setTextContent(trackLengthtoString(track.getLength()));
+        trackElement.appendChild(trackLength);
+        return trackElement;
+    }
 
+    private String trackLengthtoString(int length) {
+        return (length / 60) + ":" + String.format("%2d",length%60);
     }
 
     public NodeList getNodesByName(String tagName) {
