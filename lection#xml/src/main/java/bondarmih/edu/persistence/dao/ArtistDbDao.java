@@ -1,7 +1,9 @@
 package bondarmih.edu.persistence.dao;
 
 import bondarmih.edu.catalog.Artist;
+import bondarmih.edu.persistence.dbservice.Executor;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -9,7 +11,13 @@ import java.util.List;
  */
 public class ArtistDbDao implements ArtistDao {
 
+    private Executor executor;
+
+    public ArtistDbDao(Connection connection) {
+        this.executor = new Executor(connection);
+    }
     public Artist selectById(int id) {
+
         return null;
     }
 
