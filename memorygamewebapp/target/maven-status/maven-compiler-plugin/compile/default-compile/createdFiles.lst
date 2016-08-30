@@ -1,0 +1,3 @@
+edu/bondarmih/memorygame/config/WebConfig.class
+edu/bondarmih/memorygame/controller/IndexController.class
+edu/bondarmih/memorygame/config/SpringServletInitializer.class

@@ -1,0 +1,150 @@
+Catalog
+Artist; Name = Lenny Kravitz
+Album; Name = Baptizm; Genre = Alternative rock
+Track; Name = Minister Of Rock 'N Roll; Length = 3m34s
+Track; Name = I Don't Want To Be A Star; Length = 4m25s
+Track; Name = Lady; Length = 4m15s
+Track; Name = Calling All Angels; Length = 5m12s
+Track; Name = California; Length = 2m39s
+Track; Name = Sistamamalover; Length 4m29s
+Track; Name = Where Are We Runnin'?; Length = 2m41s
+Track; Name = Baptized; Length = 4m48s
+Track; Name = Flash; Length = 4m12s
+Track; Name = What Did I Do With My Life?; Length = 4m04s
+Track; Name = Storm; Length = 3m57s
+Track; Name = The Other Side; Length = 4m50s
+Track; Name = Destiny; Length = 4m55s
+Album; Name = Circus; Genre = Rock
+Track; Name = Rock and roll is dead; Length = 3m24s
+Track; Name = Circus; Length = 4m48s
+Track; Name = Beyond the 7th sky; Length = 4m55s
+Track; Name = Tunnel vision; Length = 4m19s
+Track; Name = Cant get you out of my mind; Length = 4m34s
+Track; Name = Magdalene; Length = 3m48s
+Track; Name = God is love; Length = 4m27s
+Track; Name = Thin ice; Length = 5m33s
+Track; Name = Don`t go and put a bullet in your head; Length = 4m22s
+Track; Name = In my life today; Length = 6m29s
+Track; Name = The resurrection; Length = 4m29s
+Artist; Name = Pink Floyd
+Album; Name = Animals; Genre = Progressive rock
+Track; Name = Pigs on the wing 1; Length = 1m25s
+Track; Name = Dogs; Length = 17m04s
+Track; Name = Pigs (Three different ones); Length = 11m22s
+Track; Name = Sheep; Length = 10m24s
+Track; Name = Ping on the wing 2; Length = 1m25s
+Album; Name = Dark side of the moon; Genre = Psychedelic rock
+Track; Name = Speak to me - Breathe in the air; Length = 3m58s
+Track; Name = On the run; Length = 3m32s
+Track; Name = Time; Length = 7m05s
+Track; Name = The great gig in the sky; Length = 4m47s
+Track; Name = Song#1-1-4; Length = 1m40s
+Track; Name = Song#1-1-0; Length = 1m40s
+Track; Name = Song#1-1-1; Length = 1m40s
+Track; Name = Song#1-1-2; Length = 1m40s
+Track; Name = Song#1-1-3; Length = 1m40s
+Track; Name = Song#1-1-4; Length = 1m40s
+Artist; Name = Artist#2
+Album; Name = Album#2-0; Genre = Genre#0
+Track; Name = Song#2-0-0; Length = 1m40s
+Track; Name = Song#2-0-1; Length = 1m40s
+Track; Name = Song#2-0-2; Length = 1m40s
+Track; Name = Song#2-0-3; Length = 1m40s
+Track; Name = Song#2-0-4; Length = 1m40s
+Album; Name = Album#2-1; Genre = Genre#1
+Track; Name = Song#2-1-0; Length = 1m40s
+Track; Name = Song#2-1-1; Length = 1m40s
+Track; Name = Song#2-1-2; Length = 1m40s
+Track; Name = Song#2-1-3; Length = 1m40s
+Track; Name = Song#2-1-4; Length = 1m40s
+Artist; Name = Artist#3
+Album; Name = Album#3-0; Genre = Genre#0
+Track; Name = Song#3-0-0; Length = 1m40s
+Track; Name = Song#3-0-1; Length = 1m40s
+Track; Name = Song#3-0-2; Length = 1m40s
+Track; Name = Song#3-0-3; Length = 1m40s
+Track; Name = Song#3-0-4; Length = 1m40s
+Album; Name = Album#3-1; Genre = Genre#1
+Track; Name = Song#3-1-0; Length = 1m40s
+Track; Name = Song#3-1-1; Length = 1m40s
+Track; Name = Song#3-1-2; Length = 1m40s
+Track; Name = Song#3-1-3; Length = 1m40s
+Track; Name = Song#3-1-4; Length = 1m40s
+Artist; Name = Artist#4
+Album; Name = Album#4-0; Genre = Genre#0
+Track; Name = Song#4-0-0; Length = 1m40s
+Track; Name = Song#4-0-1; Length = 1m40s
+Track; Name = Song#4-0-2; Length = 1m40s
+Track; Name = Song#4-0-3; Length = 1m40s
+Track; Name = Song#4-0-4; Length = 1m40s
+Album; Name = Album#4-1; Genre = Genre#1
+Track; Name = Song#4-1-0; Length = 1m40s
+Track; Name = Song#4-1-1; Length = 1m40s
+Track; Name = Song#4-1-2; Length = 1m40s
+Track; Name = Song#4-1-3; Length = 1m40s
+Track; Name = Song#4-1-4; Length = 1m40s
+Artist; Name = Artist#5
+Album; Name = Album#5-0; Genre = Genre#0
+Track; Name = Song#5-0-0; Length = 1m40s
+Track; Name = Song#5-0-1; Length = 1m40s
+Track; Name = Song#5-0-2; Length = 1m40s
+Track; Name = Song#5-0-3; Length = 1m40s
+Track; Name = Song#5-0-4; Length = 1m40s
+Album; Name = Album#5-1; Genre = Genre#1
+Track; Name = Song#5-1-0; Length = 1m40s
+Track; Name = Song#5-1-1; Length = 1m40s
+Track; Name = Song#5-1-2; Length = 1m40s
+Track; Name = Song#5-1-3; Length = 1m40s
+Track; Name = Song#5-1-4; Length = 1m40s
+Artist; Name = Artist#6
+Album; Name = Album#6-0; Genre = Genre#0
+Track; Name = Song#6-0-0; Length = 1m40s
+Track; Name = Song#6-0-1; Length = 1m40s
+Track; Name = Song#6-0-2; Length = 1m40s
+Track; Name = Song#6-0-3; Length = 1m40s
+Track; Name = Song#6-0-4; Length = 1m40s
+Album; Name = Album#6-1; Genre = Genre#1
+Track; Name = Song#6-1-0; Length = 1m40s
+Track; Name = Song#6-1-1; Length = 1m40s
+Track; Name = Song#6-1-2; Length = 1m40s
+Track; Name = Song#6-1-3; Length = 1m40s
+Track; Name = Song#6-1-4; Length = 1m40s
+Artist; Name = Artist#7
+Album; Name = Album#7-0; Genre = Genre#0
+Track; Name = Song#7-0-0; Length = 1m40s
+Track; Name = Song#7-0-1; Length = 1m40s
+Track; Name = Song#7-0-2; Length = 1m40s
+Track; Name = Song#7-0-3; Length = 1m40s
+Track; Name = Song#7-0-4; Length = 1m40s
+Album; Name = Album#7-1; Genre = Genre#1
+Track; Name = Song#7-1-0; Length = 1m40s
+Track; Name = Song#7-1-1; Length = 1m40s
+Track; Name = Song#7-1-2; Length = 1m40s
+Track; Name = Song#7-1-3; Length = 1m40s
+Track; Name = Song#7-1-4; Length = 1m40s
+Artist; Name = Artist#8
+Album; Name = Album#8-0; Genre = Genre#0
+Track; Name = Song#8-0-0; Length = 1m40s
+Track; Name = Song#8-0-1; Length = 1m40s
+Track; Name = Song#8-0-2; Length = 1m40s
+Track; Name = Song#8-0-3; Length = 1m40s
+Track; Name = Song#8-0-4; Length = 1m40s
+Album; Name = Album#8-1; Genre = Genre#1
+Track; Name = Song#8-1-0; Length = 1m40s
+Track; Name = Song#8-1-1; Length = 1m40s
+Track; Name = Song#8-1-2; Length = 1m40s
+Track; Name = Song#8-1-3; Length = 1m40s
+Track; Name = Song#8-1-4; Length = 1m40s
+Artist; Name = Artist#9
+Album; Name = Album#9-0; Genre = Genre#0
+Track; Name = Song#9-0-0; Length = 1m40s
+Track; Name = Song#9-0-1; Length = 1m40s
+Track; Name = Song#9-0-2; Length = 1m40s
+Track; Name = Song#9-0-3; Length = 1m40s
+Track; Name = Song#9-0-4; Length = 1m40s
+Album; Name = Album#9-1; Genre = Genre#1
+Track; Name = Song#9-1-0; Length = 1m40s
+Track; Name = Song#9-1-1; Length = 1m40s
+Track; Name = Song#9-1-2; Length = 1m40s
+Track; Name = Song#9-1-3; Length = 1m40s
+Track; Name = Song#9-1-4; Length = 1m40s

@@ -1,0 +1,2 @@
+127.0.0.1 - - [09/Aug/2016:22:30:54 +0400] "GET /memorygamewebapp/home HTTP/1.1" 404 - http-bio-8080-exec-1 0
+127.0.0.1 - - [09/Aug/2016:22:31:22 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-2 445
