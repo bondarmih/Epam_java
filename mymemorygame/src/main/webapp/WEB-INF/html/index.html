@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="layout/memorina :: game-head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="layout/default :: navbar"></div>
+<div th:replace="layout/memorina :: game" class="container"> GAME BODY </div>
+<div th:replace="layout/default :: footer"></div>
+</body>
+</html>

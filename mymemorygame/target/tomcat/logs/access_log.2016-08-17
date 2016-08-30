@@ -1,0 +1,9 @@
+127.0.0.1 - - [17/Aug/2016:20:00:28 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 302 - http-bio-8080-exec-1 219
+127.0.0.1 - - [17/Aug/2016:20:00:29 +0400] "GET /memory-game-web-app-edu/login HTTP/1.1" 200 2922 http-bio-8080-exec-2 1224
+127.0.0.1 - - [17/Aug/2016:20:00:29 +0400] "GET /memory-game-web-app-edu/resources/css/jumbotron.css HTTP/1.1" 200 127 http-bio-8080-exec-5 177
+127.0.0.1 - - [17/Aug/2016:20:00:29 +0400] "GET /memory-game-web-app-edu/resources/css/bootstrap.min.css HTTP/1.1" 200 121200 http-bio-8080-exec-3 223
+127.0.0.1 - - [17/Aug/2016:20:00:29 +0400] "GET /memory-game-web-app-edu/resources/css/signin.css HTTP/1.1" 200 793 http-bio-8080-exec-4 189
+127.0.0.1 - - [17/Aug/2016:20:00:29 +0400] "GET /memory-game-web-app-edu/resources/js/bootstrap.min.js HTTP/1.1" 200 37045 http-bio-8080-exec-6 179
+127.0.0.1 - - [17/Aug/2016:20:00:30 +0400] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-8 0
+127.0.0.1 - - [17/Aug/2016:20:00:39 +0400] "POST /memory-game-web-app-edu/login HTTP/1.1" 302 - http-bio-8080-exec-8 1014
+127.0.0.1 - - [17/Aug/2016:20:00:39 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 2238 http-bio-8080-exec-8 54

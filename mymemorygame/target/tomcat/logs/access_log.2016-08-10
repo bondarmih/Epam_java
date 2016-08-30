@@ -1,0 +1,16 @@
+127.0.0.1 - - [10/Aug/2016:02:10:59 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 17192 http-bio-8080-exec-1 1101
+127.0.0.1 - - [10/Aug/2016:02:11:05 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 17192 http-bio-8080-exec-2 503
+127.0.0.1 - - [10/Aug/2016:12:52:25 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 54707 http-bio-8080-exec-1 556
+127.0.0.1 - - [10/Aug/2016:12:59:50 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 54694 http-bio-8080-exec-1 520
+127.0.0.1 - - [10/Aug/2016:12:59:53 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 54701 http-bio-8080-exec-2 374
+127.0.0.1 - - [10/Aug/2016:15:25:14 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 19846 http-bio-8080-exec-1 413
+127.0.0.1 - - [10/Aug/2016:15:43:43 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 500 20280 http-bio-8080-exec-1 3355
+127.0.0.1 - - [10/Aug/2016:17:03:33 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-1 429
+127.0.0.1 - - [10/Aug/2016:17:12:56 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-1 450
+127.0.0.1 - - [10/Aug/2016:17:14:33 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-1 711
+127.0.0.1 - - [10/Aug/2016:22:29:11 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-1 603
+127.0.0.1 - - [10/Aug/2016:22:29:37 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-2 5
+127.0.0.1 - - [10/Aug/2016:22:29:39 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-3 4
+127.0.0.1 - - [10/Aug/2016:22:29:40 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-4 3
+127.0.0.1 - - [10/Aug/2016:22:29:50 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-5 4
+127.0.0.1 - - [10/Aug/2016:22:29:55 +0400] "GET /memory-game-web-app-edu/home HTTP/1.1" 200 155 http-bio-8080-exec-6 3

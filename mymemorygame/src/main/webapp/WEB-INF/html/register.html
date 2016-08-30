@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="layout/default :: common-header">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Memorygame - Register</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/resources/css/signin.css}" rel="stylesheet">
+
+</head>
+
+<body>
+<div th:replace="layout/default :: navbar">navbar</div>
+
+<div class="container">
+
+    <form class="form-signin" th:action="@{/register}" th:object="${user}" method="post">
+        <h2 class="form-signin-heading">Create an account</h2>
+
+        <label for="inputLogin" class="sr-only">Login</label>
+        <input type="text" id="inputLogin" class="form-control" placeholder="Login" th:field="*{name}" required autofocus>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</p>
+        <div th:if="${param.nameUnique}">
+            This username is not available
+        </div>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" th:field="*{password}" required>
+        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</p>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+    </form>
+
+</div>
+
+<div th:replace="layout/default :: footer">footer</div>
+<div th:replace="layout/default :: common-scripts">footer</div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="game-head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mikhail Bondar">
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>MemoryGame</title>
+
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/signin.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/sticky-footer.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/memorina.css}" rel="stylesheet">
+    <script th:src="@{/resources/js/jquery.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{/resources/js/memorina.js}"></script>
+    <script th:src="@{/resources/js/users.js}"></script>
+
+</head>
+
+<body>
+<div th:fragment="users" class="centerize">
+
+    <div class="userList"> <!--th:unless="${#lists.isEmpty(userList)}"-->
+        <table>
+            <tr><th colspan="5">Users</th> </tr>
+            <tr>
+                <th>No</th>
+                <th>id</th>
+                <th>Name</th>
+                <th>Best result</th>
+                <th>Games</th>
+                <th></th>
+            </tr>
+            <tbody>
+            <tr th:each="user, iterationStatus : ${userList}" th:id="'row' + ${user.id}">
+                <td th:text="${iterationStatus.count}">#</td>
+                <td th:text="${user.id}">1</td>
+                <td th:text="${user.name}">Bobby</td>
+                <td th:text="${user.bestResult}">100</td>
+                <td th:text="${user.gameCount}">1000</td>
+                <td><button class="btn-red" th:onclick="'javascript:deleteuser(\''+ ${user.id} +'\');'">DELETE</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div> <!-- /container -->
+
+
+</body>
+</html>

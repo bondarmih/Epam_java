@@ -1,0 +1,8 @@
+08-22 03:38:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "DELETE *[*] FROM GAMERESULT"; ожидалось "identifier"
+Syntax error in SQL statement "DELETE *[*] FROM GAMERESULT"; expected "identifier"; SQL statement:
+DELETE * FROM GAMERESULT [42001-176]
+08-22 03:40:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "DELETE FROM GAMERESULT WHERE ID=*[*] "; ожидалось "ALL, ANY, SOME, SELECT, FROM"
+Syntax error in SQL statement "DELETE FROM GAMERESULT WHERE ID=*[*] "; expected "ALL, ANY, SOME, SELECT, FROM"; SQL statement:
+DELETE FROM GAMERESULT WHERE id=* [42001-176]

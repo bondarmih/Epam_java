@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="common-header">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mikhail Bondar">
+    <meta name="ctx" th:content="${#httpServletRequest.getContextPath()}" />
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>MemoryGame</title>
+
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/signin.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/sticky-footer.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/jumbotron.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/memorina.css}" rel="stylesheet">
+    <script th:src="@{/resources/js/jquery.min.js}"></script>
+    <script th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script th:src="@{/resources/js/users.js}"></script>
+</head>
+
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" th:href="@{/home}">MemoryGame</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <p class="navbar-text" th:if="${param.regSuccess}">Your registration is successful</p>
+
+                <p class="navbar-text pull-right" sec:authorize="${!isAuthenticated()}">
+                    <a th:href="@{/login}" class="navbar-link">Sign in</a>
+                </p>
+
+                <p class="navbar-text pull-right" sec:authorize="${isAuthenticated()}">
+                    <a th:href="@{/logout}" class="navbar-link">Sign out</a>
+                </p>
+
+                <p class="navbar-text pull-right" sec:authorize="${isAuthenticated()}">
+                    <img id="user-icon" th:src="@{resources/img/user-icon.png}">
+                    <a href="#" class="navbar-link" th:text="${#authentication.name}">Link</a>
+                    <span id="best-result"></span>
+                </p>
+
+                <p class="navbar-text pull-right role-admin-text" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{/users}" class="navbar-link">Users</a>
+                </p>
+
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+</div>
+
+
+<footer th:fragment="footer" class="footer">
+    <div class="container">
+        <p class="text-muted">&copy; 2016 Mikhail Bondar</p>
+    </div>
+</footer>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<div th:fragment="common-scripts">
+
+</div>
+</body>
+</html>
